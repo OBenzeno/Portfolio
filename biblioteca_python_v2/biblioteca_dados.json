@@ -1,0 +1,275 @@
+{
+    "livros": [
+        {
+            "id": 1,
+            "titulo": "Livro 1",
+            "autor": "Autor 3",
+            "ano": "2000",
+            "num_copias": 3
+        },
+        {
+            "id": 2,
+            "titulo": "Livro 2",
+            "autor": "Autor 4",
+            "ano": "2001",
+            "num_copias": 2
+        },
+        {
+            "id": 3,
+            "titulo": "Livro 3",
+            "autor": "Autor 5",
+            "ano": "2002",
+            "num_copias": 2
+        },
+        {
+            "id": 4,
+            "titulo": "Livro 4",
+            "autor": "Autor 6",
+            "ano": "2003",
+            "num_copias": 1
+        },
+        {
+            "id": 5,
+            "titulo": "Livro 5",
+            "autor": "Autor 7",
+            "ano": "2004",
+            "num_copias": 4
+        },
+        {
+            "id": 6,
+            "titulo": "Livro 6",
+            "autor": "Autor 8",
+            "ano": "2005",
+            "num_copias": 2
+        },
+        {
+            "id": 7,
+            "titulo": "Livro 7",
+            "autor": "Autor 9",
+            "ano": "2006",
+            "num_copias": 3
+        },
+        {
+            "id": 8,
+            "titulo": "Livro 8",
+            "autor": "Autor 10",
+            "ano": "2007",
+            "num_copias": 1
+        },
+        {
+            "id": 9,
+            "titulo": "Livro 9",
+            "autor": "Autor 11",
+            "ano": "2008",
+            "num_copias": 4
+        },
+        {
+            "id": 10,
+            "titulo": "Livro 10",
+            "autor": "Autor 12",
+            "ano": "2009",
+            "num_copias": 2
+        },
+        {
+            "id": 11,
+            "titulo": "Livro 11",
+            "autor": "Autor 13",
+            "ano": "2010",
+            "num_copias": 3
+        },
+        {
+            "id": 12,
+            "titulo": "Livro 12",
+            "autor": "Autor 14",
+            "ano": "2011",
+            "num_copias": 1
+        },
+        {
+            "id": 13,
+            "titulo": "Livro 13",
+            "autor": "Autor 15",
+            "ano": "2012",
+            "num_copias": 4
+        },
+        {
+            "id": 14,
+            "titulo": "Livro 14",
+            "autor": "Autor 16",
+            "ano": "2013",
+            "num_copias": 2
+        },
+        {
+            "id": 15,
+            "titulo": "Livro 15",
+            "autor": "Autor 17",
+            "ano": "2014",
+            "num_copias": 3
+        },
+        {
+            "id": 16,
+            "titulo": "Livro 16",
+            "autor": "Autor 18",
+            "ano": "2015",
+            "num_copias": 1
+        },
+        {
+            "id": 17,
+            "titulo": "Livro 17",
+            "autor": "Autor 19",
+            "ano": "2016",
+            "num_copias": 5
+        },
+        {
+            "id": 18,
+            "titulo": "Livro 18",
+            "autor": "Autor 20",
+            "ano": "2017",
+            "num_copias": 2
+        },
+        {
+            "id": 19,
+            "titulo": "Livro 19",
+            "autor": "Autor 21",
+            "ano": "2018",
+            "num_copias": 3
+        }
+    ],
+    "usuarios": [
+        {
+            "id": 1,
+            "nome": "Jorge das Dores no Rego",
+            "contato": "34564291"
+        },
+        {
+            "id": 2,
+            "nome": "Ciclano dos Santos",
+            "contato": "34567890"
+        },
+        {
+            "id": 3,
+            "nome": "Fulano de Tal",
+            "contato": "45678901"
+        },
+        {
+            "id": 4,
+            "nome": "João da Silva",
+            "contato": "56789012"
+        },
+        {
+            "id": 5,
+            "nome": "Maria dos Santos",
+            "contato": "67890123"
+        },
+        {
+            "id": 6,
+            "nome": "José de Oliveira",
+            "contato": "78901234"
+        },
+        {
+            "id": 7,
+            "nome": "Ana Paula",
+            "contato": "89012345"
+        },
+        {
+            "id": 8,
+            "nome": "Pedro Henrique",
+            "contato": "90123456"
+        },
+        {
+            "id": 9,
+            "nome": "Mariana Silva",
+            "contato": "01234567"
+        },
+        {
+            "id": 10,
+            "nome": "Lucas Oliveira",
+            "contato": "12345678"
+        },
+        {
+            "id": 11,
+            "nome": "Aline Santos",
+            "contato": "23456789"
+        },
+        {
+            "id": 12,
+            "nome": "Carla Souza",
+            "contato": "34567890"
+        },
+        {
+            "id": 13,
+            "nome": "Ricardo Almeida",
+            "contato": "45678901"
+        },
+        {
+            "id": 14,
+            "nome": "Juliana Oliveira",
+            "contato": "56789012"
+        },
+        {
+            "id": 15,
+            "nome": "Mateus Silva",
+            "contato": "67890123"
+        },
+        {
+            "id": 16,
+            "nome": "Patrícia Almeida",
+            "contato": "78901234"
+        },
+        {
+            "id": 17,
+            "nome": "Fernando Souza",
+            "contato": "89012345"
+        },
+        {
+            "id": 18,
+            "nome": "Amanda Oliveira",
+            "contato": "90123456"
+        },
+        {
+            "id": 19,
+            "nome": "Thiago Alves",
+            "contato": "01234567"
+        },
+        {
+            "id": 20,
+            "nome": "Bianca Lima",
+            "contato": "12345678"
+        }
+    ],
+    "emprestimos": {
+        "3": [
+            {
+                "id": 1,
+                "titulo": "Livro 1",
+                "autor": "Autor 3",
+                "ano": "2000",
+                "num_copias": 4
+            },
+            {
+                "id": 9,
+                "titulo": "Livro 9",
+                "autor": "Autor 11",
+                "ano": "2008",
+                "num_copias": 4
+            }
+        ],
+        "6": [
+            {
+                "id": 3,
+                "titulo": "Livro 3",
+                "autor": "Autor 5",
+                "ano": "2002",
+                "num_copias": 2
+            }
+        ],
+        "1": [
+            {
+                "id": 1,
+                "titulo": "Livro 1",
+                "autor": "Autor 3",
+                "ano": "2000",
+                "num_copias": 3
+            }
+        ]
+    }
+}
