@@ -5,8 +5,8 @@ install.packages("tidyverse")
 # Carregar bibliotecas
 library(tidyverse)
 
-## 2. Baixar e Carregar os Dados
-dados <- read.csv("datatran2024.csv", sep = ";", fill = TRUE, check.names = FALSE)
+## 2. Baixar e Carregar os Dados - Encoding como "latin1" para evitar erros de leitura de caracteres especiais como acentos e cedilhas
+dados <- read.csv("datatran2024.csv", sep = ";", fileEncoding = "latin1", stringsAsFactors = FALSE)
 
 head(dados) # Visualizar as primeiras linhas
 
@@ -15,59 +15,68 @@ head(dados) # Visualizar as primeiras linhas
 summary(dados) # Resumo estatístico das variáveis
 str(dados) # Estrutura do dataset (tipo das variáveis)
 
-## 4. Manipulação de Dados e Cálculos Probabilísticos
+## 4. Manipulação de Dados e Limpeza - Remoção de Caracteres Especiais
+
+# Criar uma cópia do dataset original
+dados_limpos <- dados  
+
+# Lista das colunas a serem limpas
+colunas_para_limpar <- c("dia_semana", "causa_acidente", "tipo_acidente", 
+                         "classificacao_acidente", "condicao_metereologica", 
+                         "tipo_pista", "tracado_via", "uso_solo")
+
+# Criar uma função para remover acentos e substituir "ç"
+dados_limpos[colunas_para_limpar] <- lapply(dados_limpos[colunas_para_limpar], function(x) {
+  if (is.character(x)) stri_trans_general(x, "Latin-ASCII") else x
+})
+
+head(dados_limpos[colunas_para_limpar])
+
+## 5. Cálculos Probabilísticos
 
 # Estado com o maior número de acidentes
-estado_acidentes <- dados %>%
+estado_acidentes <- dados_limpos %>%
   group_by(uf) %>%
-  summarise(total_acidentes = n()) %>%
-  arrange(desc(total_acidentes))
-print(estado_acidentes)
+  summarise(total = n()) %>% 
+  mutate(probabilidade = (total / sum(total)) * 100)
 
 # Agrupar por fase do dia
-acidentes_fase_dia <- dados %>% 
+acidentes_fase_dia <- dados_limpos %>% 
   group_by(fase_dia) %>% 
   summarise(total = n()) %>% 
   mutate(probabilidade = (total / sum(total)) * 100)
 
 # Distribuição de Acidentes por Condição Climática
-clima_acidentes <- dados %>%
+clima_acidentes <- dados_limpos %>%
   group_by(condicao_metereologica) %>%
-  summarise(total_acidentes = n()) %>%
-  arrange(desc(total_acidentes))
-print(clima_acidentes)
-
-# Probabilidade de um acidente ocorrer em condições climáticas claras
-prob_clima_claro <- sum(dados$condicao_metereologica == "Céu Claro") / nrow(dados)
-print(paste("Probabilidade de acidente ocorrer em condições climáticas claras:", round(prob_clima_claro * 100, 2), "%"))
+  summarise(total = n()) %>% 
+  mutate(probabilidade = (total / sum(total)) * 100)
 
 # Tipos de acidentes predominantes
-dados %>% 
+predominante_acidentes <- dados_limpos %>% 
   group_by(tipo_acidente) %>% 
   summarise(total = n()) %>% 
-  arrange(desc(total)) %>% 
-  head(5)
+  mutate(probabilidade = (total / sum(total)) * 100)
 
 # Qual o dia com maior risco de acidentes?
-dados %>% 
+risco_dia <- dados_limpos %>% 
   group_by(dia_semana) %>% 
-  summarise(
-    total = n(),
-    probabilidade = (n() / nrow(dados)) * 100
+  summarise(total = n()) %>% 
+  mutate(probabilidade = (total / sum(total)) * 100)
 
 ## Probabilidade Condicional
 #Qual a probabilidade de um acidente ser fatal ("com vítima fatal"), dado que ocorreu à noite?
 
 # Filtrar acidentes à noite
-acidentes_noite <- dados %>% filter(fase_dia == "Plena Noite")
-acidentes_dia <- dados %>% filter(fase_dia == "Pleno dia")
+acidentes_noite <- dados_limpos %>% filter(fase_dia == "Plena Noite")
+acidentes_dia <- dados_limpos %>% filter(fase_dia == "Pleno dia")
 
 # Calcular P(Fatal | Noite)
-prob_fatal_noite <- mean(acidentes_noite$classificacao_acidente == "Com Vítimas Fatais", na.rm = TRUE) * 100
+prob_fatal_noite <- mean(acidentes_noite$classificacao_acidente == "Com Vitimas Fatais", na.rm = TRUE) * 100
 cat("Probabilidade de acidente fatal à noite:", round(prob_fatal_noite, 2), "%")
 
 # Calcular P(Fatal | Dia)
-prob_fatal_dia <- mean(acidentes_dia$classificacao_acidente == "Com Vítimas Fatais", na.rm = TRUE) * 100
+prob_fatal_dia <- mean(acidentes_dia$classificacao_acidente == "Com Vitimas Fatais", na.rm = TRUE) * 100
 cat("Probabilidade de acidente fatal durante o Dia:", round(prob_fatal_dia, 2), "%")
 
 
@@ -76,12 +85,12 @@ cat("Probabilidade de acidente fatal durante o Dia:", round(prob_fatal_dia, 2), 
 # Acidentes em rodovias ("BR") vs. vias urbanas ("URBANA")
 
 # Contagem de acidentes em BRs e vias urbanas
-total_br <- sum(dados$tipo_via == "BR", na.rm = TRUE)
-total_urbana <- sum(dados$tipo_via == "URBANA", na.rm = TRUE)
+total_br <- sum(dados_limpos$tipo_via == "BR", na.rm = TRUE)
+total_urbana <- sum(dados_limpos$tipo_via == "URBANA", na.rm = TRUE)
 
 # Acidentes fatais em cada tipo de via
-fatais_br <- sum(dados$tipo_via == "BR" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
-fatais_urbana <- sum(dados$tipo_via == "URBANA" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
+fatais_br <- sum(dados_limpos$tipo_via == "BR" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
+fatais_urbana <- sum(dados_limpos$tipo_via == "URBANA" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
 
 # Risco Relativo (RR)
 rr <- (fatais_br / total_br) / (fatais_urbana / total_urbana)
@@ -115,7 +124,7 @@ p_embriaguez_fatal <- (p_fatal_embriaguez * p_embriaguez) / p_fatal
 cat("Probabilidade de embriaguez dado acidente fatal:", round(p_embriaguez_fatal, 2) * 100, "%")
 
 
-## 5 Visualização dos Resultados com ggplot2
+## 6. Visualização dos Resultados com ggplot2
 
 # Gráfico de Acidentes por Estado
 ggplot(estado_acidentes, aes(x=reorder(uf, -total_acidentes), y=total_acidentes, fill=uf)) +
