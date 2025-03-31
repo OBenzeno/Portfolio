@@ -37,32 +37,32 @@ head(dados_limpos[colunas_para_limpar])
 # Estado com o maior número de acidentes
 estado_acidentes <- dados_limpos %>%
   group_by(uf) %>%
-  summarise(total = n()) %>% 
-  mutate(probabilidade = (total / sum(total)) * 100)
+  summarise(total_acidentes = n()) %>% 
+  mutate(estado_acidentes_prob = (total_acidentes / sum(total_acidentes)) * 100)
 
 # Agrupar por fase do dia
 acidentes_fase_dia <- dados_limpos %>% 
   group_by(fase_dia) %>% 
-  summarise(total = n()) %>% 
-  mutate(probabilidade = (total / sum(total)) * 100)
+  summarise(total_fase_dia = n()) %>% 
+  mutate(fase_dia_prob = (total_fase_dia / sum(total_fase_dia)) * 100)
 
 # Distribuição de Acidentes por Condição Climática
 clima_acidentes <- dados_limpos %>%
   group_by(condicao_metereologica) %>%
-  summarise(total = n()) %>% 
-  mutate(probabilidade = (total / sum(total)) * 100)
+  summarise(total_condicao_metereologica = n()) %>% 
+  mutate(condicao_metereologica_prob = (total_condicao_metereologica / sum(total_condicao_metereologica)) * 100)
 
 # Tipos de acidentes predominantes
 predominante_acidentes <- dados_limpos %>% 
   group_by(tipo_acidente) %>% 
-  summarise(total = n()) %>% 
-  mutate(probabilidade = (total / sum(total)) * 100)
+  summarise(total_tipo_acidente = n()) %>% 
+  mutate(tipo_acidente_prob = (total_tipo_acidente / sum(total_tipo_acidente)) * 100)
 
 # Qual o dia com maior risco de acidentes?
 risco_dia <- dados_limpos %>% 
   group_by(dia_semana) %>% 
-  summarise(total = n()) %>% 
-  mutate(probabilidade = (total / sum(total)) * 100)
+  summarise(total_dia_semana = n()) %>% 
+  mutate(dia_semana_prob = (total_dia_semana / sum(total_dia_semana)) * 100)
 
 ## Probabilidade Condicional
 #Qual a probabilidade de um acidente ser fatal ("com vítima fatal"), dado que ocorreu à noite?
@@ -79,50 +79,9 @@ cat("Probabilidade de acidente fatal à noite:", round(prob_fatal_noite, 2), "%"
 prob_fatal_dia <- mean(acidentes_dia$classificacao_acidente == "Com Vitimas Fatais", na.rm = TRUE) * 100
 cat("Probabilidade de acidente fatal durante o Dia:", round(prob_fatal_dia, 2), "%")
 
-
-
-## Risco Relativo (RR)
-# Acidentes em rodovias ("BR") vs. vias urbanas ("URBANA")
-
-# Contagem de acidentes em BRs e vias urbanas
-total_br <- sum(dados_limpos$tipo_via == "BR", na.rm = TRUE)
-total_urbana <- sum(dados_limpos$tipo_via == "URBANA", na.rm = TRUE)
-
-# Acidentes fatais em cada tipo de via
-fatais_br <- sum(dados_limpos$tipo_via == "BR" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
-fatais_urbana <- sum(dados_limpos$tipo_via == "URBANA" & dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
-
-# Risco Relativo (RR)
-rr <- (fatais_br / total_br) / (fatais_urbana / total_urbana)
-cat("Risco Relativo (BR vs. Urbana):", round(rr, 2))
-
-## Modelo de Poisson (Eventos Raros)
-# Qual a probabilidade de ocorrerem mais de 5 acidentes por hora em um estado?
-
-# Supondo dados agregados por hora em SP
-acidentes_sp_hora <- dados %>% 
-  filter(uf == "SP") %>% 
-  group_by(hora) %>% 
-  summarise(n = n())
-
-# Média de acidentes por hora
-lambda <- mean(acidentes_sp_hora$n)
-
-# P(X > 5) = 1 - P(X ≤ 5)
-prob_mais_5 <- 1 - ppois(5, lambda)
-cat("Probabilidade de >5 acidentes/hora em SP:", round(prob_mais_5, 4) * 100, "%")
-
-## Teorema de Bayes
-# Se um acidente foi fatal, qual a probabilidade de ter ocorrido com embriaguez?
-
-# P(Embriaguez | Fatal) = P(Fatal | Embriaguez) * P(Embriaguez) / P(Fatal)
-p_fatal_embriaguez <- mean(dados$tipo_ocorrencia[dados$embriaguez == "SIM"] == "com vítima fatal", na.rm = TRUE)
-p_embriaguez <- mean(dados$embriaguez == "SIM", na.rm = TRUE)
-p_fatal <- mean(dados$tipo_ocorrencia == "com vítima fatal", na.rm = TRUE)
-
-p_embriaguez_fatal <- (p_fatal_embriaguez * p_embriaguez) / p_fatal
-cat("Probabilidade de embriaguez dado acidente fatal:", round(p_embriaguez_fatal, 2) * 100, "%")
-
+# Calcular P(Fatal Total)
+prob_fatal <- prob_fatal_dia + prob_fatal_noite
+cat("Probabilidade total de acidentes fatais (Dia + Noite):", round(prob_fatal, 2), "%")
 
 ## 6. Visualização dos Resultados com ggplot2
 
@@ -131,46 +90,43 @@ ggplot(estado_acidentes, aes(x=reorder(uf, -total_acidentes), y=total_acidentes,
   geom_bar(stat="identity") +
   labs(title="Número de Acidentes por Estado", x="Estado", y="Total de Acidentes") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle=45, hjust=1))
-
-# Como a Condição Climática afeta a ocorrência de acidentes? 
-ggplot(clima_acidentes, aes(x=reorder(condicao_metereologica, -total_acidentes), y=total_acidentes, fill=condicao_metereologica)) +
-  geom_bar(stat="identity") +
-  coord_flip() +
-  labs(title="Distribuição de Acidentes por Condição Climática", x="Condição Climática", y="Total de Acidentes") +
-  theme_minimal()
+  theme(axis.text.x = element_text(angle=45, hjust=1), legend.position = "none")
 
 # Como a fase do dia afeta a ocorrência de acidentes?
-ggplot(fase_dia_prob, aes(x=fase_dia, y=probabilidade, fill=fase_dia)) +
-  geom_bar(stat="identity") +
-  labs(title="Probabilidade de Acidentes por Fase do Dia", x="Fase do Dia", y="Probabilidade") +
-  theme_minimal()
+ggplot(acidentes_fase_dia, aes(x = fase_dia, y = fase_dia_prob, fill = fase_dia)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.1f%%", fase_dia_prob)), vjust = -0.5, size = 3.5) +
+  labs(title = "Probabilidade de Acidentes por Fase do Dia (%)", x = "Fase do Dia", y = "Probabilidade (%)") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 
-# Gráfico de densidade para distribuição de acidentes por hora
-ggplot(dados, aes(x = hora)) + 
-  geom_density(fill = "red", alpha = 0.5) +
-  labs(title = "Distribuição de Acidentes por Hora do Dia")
+# Como a Condição Climática afeta a ocorrência de acidentes? 
+ggplot(clima_acidentes, aes(x = reorder(condicao_metereologica, -condicao_metereologica_prob), y = condicao_metereologica_prob, fill = condicao_metereologica)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.1f%%", condicao_metereologica_prob)), hjust = -0.2, size = 3.5) + 
+  scale_y_continuous(labels = percent_format(scale = 1)) +  
+  labs(title = "Distribuição Percentual de Acidentes por Condição Climática", x = "Condição Climática", y = "Porcentagem de Acidentes (%)") +
+  theme_minimal() +
+  coord_flip() 
 
-# Mapa de calor de risco por estado
-estados <- read_state()
-dados_estados <- left_join(estados, acidentes_por_estado, by = c("abbrev_state" = "uf"))
-ggplot(dados_estados) +
-  geom_sf(aes(fill = total)) +
-  scale_fill_viridis_c("Total de Acidentes")
+# Tipos de Acidentes Predominantes e suas Probabilidades
+ggplot(predominante_acidentes, aes(x = reorder(tipo_acidente, -tipo_acidente_prob), y = tipo_acidente_prob, fill = tipo_acidente)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = sprintf("%.1f%%", tipo_acidente_prob)), hjust = -0.2, size = 3) + 
+  scale_y_continuous(labels = percent_format(scale = 1)) +  
+  labs(title = "Distribuição Percentual dos Tipos de Acidentes (%)", x = "Tipo de Acidente", y = "Probabilidade (%)") +
+  theme_minimal() +
+  theme(legend.position = "none") + 
+  coord_flip()  
 
-
-
-
-
-
-turnos_mais_acidentes <- dados %>%
-  count(fase_dia, sort = TRUE) %>%  # Conta e ordena do maior para o menor
-  rename(total_acidentes = n)       # Renomeia a coluna de contagem
-print(turnos_mais_acidentes)
-
-resumo <- dados %>% 
-  group_by(dia_semana) %>% 
-  summarise(total = n())
-print(resumo)
-
+# Risco de Acidentes por dia da semana
+ggplot(risco_dia, aes(x = reorder(dia_semana, -dia_semana_prob), y = dia_semana_prob, fill = dia_semana)) +
+  geom_bar(stat = "identity", show.legend = FALSE) +
+  geom_text(aes(label = sprintf("%.1f%%", dia_semana_prob)), hjust = 1.2, color = "white", size = 4, fontface = "bold") +  # Texto dentro das barras
+  scale_y_continuous(labels = percent_format(scale = 1)) +  
+  labs(title = "Probabilidade de Acidentes por Dia da Semana", x = "Dia da Semana", y = "Probabilidade (%)") +  # O "+" estava faltando antes do labs()
+  theme_minimal() +
+  coord_flip()
+  
+# Calcular Probabilidade de Acidente Fatal
 
