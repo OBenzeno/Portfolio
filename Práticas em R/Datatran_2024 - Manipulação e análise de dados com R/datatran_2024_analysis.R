@@ -88,7 +88,7 @@ cat("Probabilidade total de acidentes fatais (Dia + Noite):", round(prob_fatal, 
 # Gráfico de Acidentes por Estado
 ggplot(estado_acidentes, aes(x=reorder(uf, -total_acidentes), y=total_acidentes, fill=uf)) +
   geom_bar(stat="identity") +
-  labs(title="Número de Acidentes por Estado", x="Estado", y="Total de Acidentes") +
+  labs(title="Número de Acidentes por Estado", x="Estado", y="Total de Acidentes", caption=" Fonte: Elaborado pelo autor, 2025") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle=45, hjust=1), legend.position = "none")
 
@@ -96,7 +96,7 @@ ggplot(estado_acidentes, aes(x=reorder(uf, -total_acidentes), y=total_acidentes,
 ggplot(acidentes_fase_dia, aes(x = fase_dia, y = fase_dia_prob, fill = fase_dia)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
   geom_text(aes(label = sprintf("%.1f%%", fase_dia_prob)), vjust = -0.5, size = 3.5) +
-  labs(title = "Probabilidade de Acidentes por Fase do Dia (%)", x = "Fase do Dia", y = "Probabilidade (%)") +
+  labs(title = "Probabilidade de Acidentes por Fase do Dia (%)", x = "Fase do Dia", y = "Probabilidade (%)", caption=" Fonte: Elaborado pelo autor, 2025") +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 
@@ -105,7 +105,7 @@ ggplot(clima_acidentes, aes(x = reorder(condicao_metereologica, -condicao_metere
   geom_bar(stat = "identity", show.legend = FALSE) +
   geom_text(aes(label = sprintf("%.1f%%", condicao_metereologica_prob)), hjust = -0.2, size = 3.5) + 
   scale_y_continuous(labels = percent_format(scale = 1)) +  
-  labs(title = "Distribuição Percentual de Acidentes por Condição Climática", x = "Condição Climática", y = "Porcentagem de Acidentes (%)") +
+  labs(title = "Distribuição Percentual de Acidentes por Condição Climática", x = "Condição Climática", y = "Porcentagem de Acidentes (%)", caption=" Fonte: Elaborado pelo autor, 2025") +
   theme_minimal() +
   coord_flip() 
 
@@ -114,7 +114,7 @@ ggplot(predominante_acidentes, aes(x = reorder(tipo_acidente, -tipo_acidente_pro
   geom_bar(stat = "identity") +
   geom_text(aes(label = sprintf("%.1f%%", tipo_acidente_prob)), hjust = -0.2, size = 3) + 
   scale_y_continuous(labels = percent_format(scale = 1)) +  
-  labs(title = "Distribuição Percentual dos Tipos de Acidentes (%)", x = "Tipo de Acidente", y = "Probabilidade (%)") +
+  labs(title = "Distribuição Percentual dos Tipos de Acidentes (%)", x = "Tipo de Acidente", y = "Probabilidade (%)", caption=" Fonte: Elaborado pelo autor, 2025") +
   theme_minimal() +
   theme(legend.position = "none") + 
   coord_flip()  
@@ -122,9 +122,9 @@ ggplot(predominante_acidentes, aes(x = reorder(tipo_acidente, -tipo_acidente_pro
 # Risco de Acidentes por dia da semana
 ggplot(risco_dia, aes(x = reorder(dia_semana, -dia_semana_prob), y = dia_semana_prob, fill = dia_semana)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
-  geom_text(aes(label = sprintf("%.1f%%", dia_semana_prob)), hjust = 1.2, color = "white", size = 4, fontface = "bold") +  # Texto dentro das barras
+  geom_text(aes(label = sprintf("%.1f%%", dia_semana_prob)), hjust = 1.2, color = "white", size = 4, fontface = "bold") + 
   scale_y_continuous(labels = percent_format(scale = 1)) +  
-  labs(title = "Probabilidade de Acidentes por Dia da Semana", x = "Dia da Semana", y = "Probabilidade (%)") +  # O "+" estava faltando antes do labs()
+  labs(title = "Probabilidade de Acidentes por Dia da Semana", x = "Dia da Semana", y = "Probabilidade (%)", caption=" Fonte: Elaborado pelo autor, 2025") +  
   theme_minimal() +
   coord_flip()
   
