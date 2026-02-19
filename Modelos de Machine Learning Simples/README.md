@@ -1,4 +1,5 @@
 # **Classificador de Dígitos Manuscritos com MLP (MNIST)**
+### Atividade prática de Ciência de Dados
 
 <img 
     align="left" 
@@ -18,6 +19,7 @@
     src="https://img.shields.io/badge/TensorFlow-2+-orange.svg" 
 />
 
+<br>
 
 Este repositório contém a implementação de uma Rede Neural Multilayer Perceptron (MLP) para a classificação de dígitos manuscritos, utilizando o clássico conjunto de dados MNIST. O projeto foi desenvolvido como parte de uma atividade prática de Ciência de Dados, com o objetivo de construir, treinar e avaliar um modelo de aprendizado profundo para reconhecimento de padrões em imagens.
 
