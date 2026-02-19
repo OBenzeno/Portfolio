@@ -1,7 +1,5 @@
 # **Classificador de Dígitos Manuscritos com MLP (MNIST)**
-## Atividade prática de Ciência de Dados
-
-<br>
+### Atividade prática de Ciência de Dados
 
 <img 
     align="left" 
@@ -27,13 +25,10 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 
 ---
 
-## **Sumário**
-
-### **Objetivo**
+## **Objetivo**
 Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
 
-### **Procedimentos**
-
+## **Sumário**
 1. Importar bibliotecas e carregar os dados
 
 2. Pré-processamento dos dados
@@ -51,16 +46,28 @@ Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utiliza
 ### **Checklist da Atividade**
 
 * Resultados
-
 * Interpretação dos Gráficos
-
 * Tecnologias Utilizadas
-
 * Como Executar
-
 * Conclusão e Próximos Passos
 
 ---
 
+## **Procedimentos**
+1. Importar bibliotecas e carregar os dados
+Importamos as bibliotecas essenciais (tensorflow, matplotlib) e carregamos o dataset MNIST, que já vem dividido em treino e teste.
+
+python
+import tensorflow as tf
+from tensorflow.keras.datasets import mnist
+from tensorflow.keras.utils import to_categorical
+import matplotlib.pyplot as plt
+
+(X_train, y_train), (X_test, y_test) = mnist.load_data()
+Observação:
+
+X_train possui 60.000 imagens 28×28 em escala de cinza.
+
+X_test possui 10.000 imagens.
 
 
