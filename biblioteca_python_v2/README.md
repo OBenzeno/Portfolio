@@ -61,15 +61,14 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 
 sistema-biblioteca/
 │
-├── main.py # Interface gráfica e lógica de apresentação
-├── biblioteca.py # Classe Biblioteca (regras de negócio e persistência)
-├── livro.py # Classe Livro (modelo)
-├── usuario.py # Classe Usuario (modelo)
-├── biblioteca_dados.json # Arquivo de dados gerado automaticamente
-├── screenshots/ # Pasta com imagens para o README
-│ └── interface_principal.png
-└── README.md # Documentação
-
+├── main.py # Interface gráfica e lógica de apresentação <br>
+├── biblioteca.py # Classe Biblioteca (regras de negócio e persistência) <br>
+├── livro.py # Classe Livro (modelo) <br>
+├── usuario.py # Classe Usuario (modelo) <br>
+├── biblioteca_dados.json # Arquivo de dados gerado automaticamente <br>
+├── screenshots/ # Pasta com imagens para o README <br>
+│ └── interface_principal.png <br>
+└── README.md # Documentação 
 
 ---
 
