@@ -60,23 +60,14 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 ## 📁 Estrutura do Projeto
 
 sistema-biblioteca/
-
-│
-├── main.py # Interface gráfica e lógica de apresentação 
-
-├── biblioteca.py # Classe Biblioteca (regras de negócio e persistência) 
-
-├── livro.py # Classe Livro (modelo) 
-
-├── usuario.py # Classe Usuario (modelo) 
-
-├── biblioteca_dados.json # Arquivo de dados gerado automaticamente 
-
-├── screenshots/ # Pasta com imagens para o README 
-
-│ └── interface_principal.png 
-
-└── README.md # Documentação 
+├── main.py                 # Interface gráfica e lógica de apresentação
+├── biblioteca.py           # Classe Biblioteca (regras de negócio e persistência)
+├── livro.py                # Classe Livro (modelo)
+├── usuario.py              # Classe Usuario (modelo)
+├── biblioteca_dados.json   # Arquivo de dados gerado automaticamente
+├── screenshots/            # Pasta com imagens para o README
+│   └── interface_principal.png
+└── README.md               # Documentação
 
 ---
 
