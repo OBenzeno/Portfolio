@@ -4,7 +4,7 @@
     align="left" 
     alt="Python" 
     title="Python"
-    width="80px" 
+    width="90px" 
     style="padding-right: 120px;" 
     src="https://img.shields.io/badge/python-3+-blue.svg" 
 />
