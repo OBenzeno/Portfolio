@@ -5,7 +5,7 @@
     alt="Python" 
     title="Python"
     width="30px" 
-    style="padding-right: 10px;" 
+    style="padding-right: 80px;" 
     src="https://img.shields.io/badge/python-3+-blue.svg" 
 />
 
