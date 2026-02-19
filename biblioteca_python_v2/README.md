@@ -60,6 +60,7 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 ## 📁 Estrutura do Projeto
 
 sistema-biblioteca/
+
 │
 ├── main.py # Interface gráfica e lógica de apresentação 
 ├── biblioteca.py # Classe Biblioteca (regras de negócio e persistência) 
