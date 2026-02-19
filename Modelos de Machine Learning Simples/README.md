@@ -57,10 +57,10 @@ Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utiliza
 1. Importar bibliotecas e carregar os dados
 Importamos as bibliotecas essenciais (tensorflow, matplotlib) e carregamos o dataset MNIST, que já vem dividido em treino e teste.
 
-python
-import tensorflow as tf
-from tensorflow.keras.datasets import mnist
-from tensorflow.keras.utils import to_categorical
+python <br>
+import tensorflow as tf <br>
+from tensorflow.keras.datasets import mnist <br>
+from tensorflow.keras.utils import to_categorical <br>
 import matplotlib.pyplot as plt
 
 (X_train, y_train), (X_test, y_test) = mnist.load_data()
