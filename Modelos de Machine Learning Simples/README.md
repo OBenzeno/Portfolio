@@ -28,22 +28,6 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 ## **Objetivo**
 Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
 
-## **Sumário**
-
-
-
-
-
-### **Checklist da Atividade**
-
-* Resultados
-* Interpretação dos Gráficos
-* Tecnologias Utilizadas
-* Como Executar
-* Conclusão e Próximos Passos
-
----
-
 ## **Procedimentos**
 1. Importar bibliotecas e carregar os dados
 Importamos as bibliotecas essenciais (tensorflow, matplotlib) e carregamos o dataset MNIST, que já vem dividido em treino e teste.
@@ -69,6 +53,15 @@ Após o treinamento, avaliamos o desempenho no conjunto de teste (dados nunca vi
 7. Previsões e visualização
 Selecionamos uma imagem aleatória do conjunto de teste, exibimos o dígito e fazemos a predição com o modelo treinado.
 
+### **Checklist da Atividade**
+* Resultados
+* Interpretação dos Gráficos
+* Tecnologias Utilizadas
+* Como Executar
+* Conclusão e Próximos Passos
+
+---
+
 ## **Resultados**
 - Acurácia final no conjunto de teste: 98,13%
 - Curvas de aprendizado: Os gráficos de acurácia e loss (apresentados no notebook) mostram que o modelo converge de forma estável, sem sinais de overfitting significativo.
@@ -82,6 +75,8 @@ A célula de visualização exibe uma imagem aleatória e a respectiva previsão
 - Proximidade entre curvas de treino e validação sugere boa generalização (pouco overfitting).
 - Queda consistente da loss confirma que o modelo está otimizando corretamente.
 
+---
+
 ## **Tecnologias Utilizadas**
 * Python 3.10+
 * TensorFlow 2.x / Keras
@@ -94,6 +89,8 @@ A célula de visualização exibe uma imagem aleatória e a respectiva previsão
 * Abra o notebook no Google Colab ou Jupyter.
 * Execute as células em ordem sequencial.
 * Certifique-se de ter as bibliotecas instaladas (tensorflow, matplotlib, numpy).
+
+---
 
 ## **Conclusão e Próximos Passos**
 O modelo MLP desenvolvido atingiu uma acurácia de 98,13% no conjunto de teste do MNIST, demonstrando ser eficaz para a tarefa de classificação de dígitos manuscritos. O uso de dropout contribuiu para evitar overfitting, como observado pelas curvas de aprendizado.
