@@ -2,8 +2,8 @@
 
 https://img.shields.io/badge/MySQL-8.0-blue
 https://img.shields.io/badge/Workbench-Ferramenta-orange
-https://img.shields.io/badge/Cloud-AWS%2520%257C%2520GCP%2520%257C%2520Azure-lightgrey
-https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen
+https://img.shields.io/badge/Cloud-AWS%20%7C%20GCP%20%7C%20Azure-lightgrey
+https://img.shields.io/badge/status-concluído-brightgreen
 
 Este repositório contém o script SQL desenvolvido durante a disciplina Banco de Dados em Nuvem da faculdade. O objetivo é criar um banco de dados relacional localmente (MySQL Workbench) e descrever os passos para conectá‑lo a um provedor em nuvem.
 
@@ -26,11 +26,11 @@ O resultado é um script SQL completo e um roteiro para publicação em nuvem, i
   - Cloud Provider – AWS RDS, Google Cloud SQL ou Azure Database (descritivo)
 
 📁 Estrutura do Script
--- 1) Criar o banco de dados "aula"
+1) Criar o banco de dados "aula"
 CREATE DATABASE aula;
 USE aula;
 
--- 2) Relacionamento 1 para 1: Tabelas cliente e endereco
+2) Relacionamento 1 para 1: Tabelas cliente e endereco
 CREATE TABLE cliente (
     cliente_id INT PRIMARY KEY,
     nome VARCHAR(50),
@@ -47,7 +47,7 @@ CREATE TABLE endereco (
     FOREIGN KEY (cliente_id) REFERENCES cliente(cliente_id)
 );
 
--- 3) Relacionamento 1 para muitos: Tabelas empresa e funcionario
+3) Relacionamento 1 para muitos: Tabelas empresa e funcionario
 CREATE TABLE empresa (
     empresa_id INT PRIMARY KEY,
     nome VARCHAR(50),
@@ -62,7 +62,7 @@ CREATE TABLE funcionario (
     FOREIGN KEY (empresa_id) REFERENCES empresa(empresa_id)
 );
 
--- 4) Relacionamento muitos para muitos: Tabelas curso, estudante e curso_estudante
+4) Relacionamento muitos para muitos: Tabelas curso, estudante e curso_estudante
 CREATE TABLE curso (
     curso_id INT PRIMARY KEY,
     nome VARCHAR(50),
