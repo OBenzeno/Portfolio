@@ -111,6 +111,7 @@ Passo a passo
 Abaixo está uma descrição genérica de como publicar o banco de dados em um ambiente cloud. Os procedimentos são semelhantes para os principais provedores.
 
 1. Escolha um Provedor
+
 | Provedor        | Serviço               | Características                                               | Preço aproximado (menor plano)        |
 |-----------------|----------------------|---------------------------------------------------------------|--------------------------------------|
 | AWS             | RDS (MySQL)          | Gerenciado, escalável, backup automático, suporte a Multi‑AZ  | ~ USD 15/mês (db.t3.micro)           |
