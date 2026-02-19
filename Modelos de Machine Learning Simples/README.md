@@ -14,7 +14,7 @@
     alt="Twnsorflow" 
     title="Tensorflow"
     width="80px" 
-    style="padding-right: 120px;" 
+    style="padding-right: 150px;" 
     src="https://img.shields.io/badge/TensorFlow-2+-orange.svg" 
 />
 
