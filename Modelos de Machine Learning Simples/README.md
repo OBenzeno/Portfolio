@@ -1,6 +1,8 @@
 # **Classificador de Dígitos Manuscritos com MLP (MNIST)**
 ### Atividade prática de Ciência de Dados
 
+---
+
 <img 
     align="left" 
     alt="Python" 
