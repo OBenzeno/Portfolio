@@ -29,19 +29,10 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
 
 ## **Sumário**
-1. Importar bibliotecas e carregar os dados
 
-2. Pré-processamento dos dados
 
-3. Construção do modelo MLP
 
-4. Compilação do modelo
 
-5. Treinamento do modelo
-
-6. Avaliação do modelo
-
-7. Previsões e visualização
 
 ### **Checklist da Atividade**
 
@@ -57,38 +48,58 @@ Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utiliza
 1. Importar bibliotecas e carregar os dados
 Importamos as bibliotecas essenciais (tensorflow, matplotlib) e carregamos o dataset MNIST, que já vem dividido em treino e teste.
 
-import tensorflow as tf <br>
-from tensorflow.keras.datasets import mnist <br>
-from tensorflow.keras.utils import to_categorical <br>
-import matplotlib.pyplot as plt
-
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
-Observação:
-
-X_train possui 60.000 imagens 28×28 em escala de cinza.
-
-X_test possui 10.000 imagens.
-
 2. Pré-processamento dos dados
-Normalização: Os pixels são convertidos de 0–255 para o intervalo [0,1], o que acelera a convergência do treinamento.
+* Normalização: Os pixels são convertidos de 0–255 para o intervalo [0,1], o que acelera a convergência do treinamento.
+* Achatamento (Flatten): As imagens 2D são transformadas em vetores 1D de 784 features, pois a MLP espera entradas planas.
+* One-hot encoding: Os rótulos (0–9) são convertidos para vetores binários de 10 posições, compatíveis com a função de perda categorical_crossentropy.
 
-Achatamento (Flatten): As imagens 2D são transformadas em vetores 1D de 784 features, pois a MLP espera entradas planas.
-
-One-hot encoding: Os rótulos (0–9) são convertidos para vetores binários de 10 posições, compatíveis com a função de perda categorical_crossentropy.
-
-python
-# Normalização
-X_train = X_train / 255.0
-X_test = X_test / 255.0
-
-# Flatten
-X_train = X_train.reshape((X_train.shape[0], 28*28))
-X_test = X_test.reshape((X_test.shape[0], 28*28))
-
-# One-hot encoding
-y_train = to_categorical(y_train, 10)
-y_test = to_categorical(y_test, 10)
 3. Construção do modelo MLP
 Arquitetura sequencial com duas camadas ocultas densas, ativação ReLU, dropout para regularização e camada de saída softmax.
 
+4. Compilação do modelo
+Utilizamos o otimizador Adam, a função de perda categorical_crossentropy (adequada para classificação multiclasse) e a métrica accuracy.
 
+5. Treinamento do modelo
+Treinamos por 10 épocas, com batch size de 128 e 10% dos dados de treino separados para validação.
+O histórico do treinamento (history) armazena os valores de loss e acurácia para cada época, tanto no treino quanto na validação.
+
+6. Avaliação do modelo
+Após o treinamento, avaliamos o desempenho no conjunto de teste (dados nunca vistos).
+
+7. Previsões e visualização
+Selecionamos uma imagem aleatória do conjunto de teste, exibimos o dígito e fazemos a predição com o modelo treinado.
+
+## **Resultados**
+- Acurácia final no conjunto de teste: 98,13%
+- Curvas de aprendizado: Os gráficos de acurácia e loss (apresentados no notebook) mostram que o modelo converge de forma estável, sem sinais de overfitting significativo.
+
+### **Exemplo de previsão**
+A célula de visualização exibe uma imagem aleatória e a respectiva previsão do modelo, permitindo verificar acertos e possíveis erros.
+
+### **Interpretação dos Gráficos**
+- Os gráficos gerados ao final do notebook permitem analisar o comportamento do treinamento:
+- Acurácia crescente ao longo das épocas indica aprendizado efetivo.
+- Proximidade entre curvas de treino e validação sugere boa generalização (pouco overfitting).
+- Queda consistente da loss confirma que o modelo está otimizando corretamente.
+
+## **Tecnologias Utilizadas**
+* Python 3.10+
+* TensorFlow 2.x / Keras
+* Matplotlib
+* NumPy
+* Google Colab (ambiente de execução)
+
+### **Como Executar**
+* Clone este repositório ou faça o download do arquivo .ipynb.
+* Abra o notebook no Google Colab ou Jupyter.
+* Execute as células em ordem sequencial.
+* Certifique-se de ter as bibliotecas instaladas (tensorflow, matplotlib, numpy).
+
+## **Conclusão e Próximos Passos**
+O modelo MLP desenvolvido atingiu uma acurácia de 98,13% no conjunto de teste do MNIST, demonstrando ser eficaz para a tarefa de classificação de dígitos manuscritos. O uso de dropout contribuiu para evitar overfitting, como observado pelas curvas de aprendizado.
+
+### **Sugestões para trabalhos futuros:**
+- Substituir a MLP por uma Rede Neural Convolucional (CNN), que tende a obter desempenho ainda superior em dados de imagem.
+- Realizar ajuste de hiperparâmetros (número de neurônios, taxas de dropout, learning rate) para buscar melhorias.
+- Aplicar data augmentation para aumentar a robustez do modelo.
+- Salvar e exportar o modelo treinado para uso em aplicações reais.
