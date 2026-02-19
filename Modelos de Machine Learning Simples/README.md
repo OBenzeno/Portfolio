@@ -57,7 +57,6 @@ Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utiliza
 1. Importar bibliotecas e carregar os dados
 Importamos as bibliotecas essenciais (tensorflow, matplotlib) e carregamos o dataset MNIST, que já vem dividido em treino e teste.
 
-python <br>
 import tensorflow as tf <br>
 from tensorflow.keras.datasets import mnist <br>
 from tensorflow.keras.utils import to_categorical <br>
@@ -69,5 +68,27 @@ Observação:
 X_train possui 60.000 imagens 28×28 em escala de cinza.
 
 X_test possui 10.000 imagens.
+
+2. Pré-processamento dos dados
+Normalização: Os pixels são convertidos de 0–255 para o intervalo [0,1], o que acelera a convergência do treinamento.
+
+Achatamento (Flatten): As imagens 2D são transformadas em vetores 1D de 784 features, pois a MLP espera entradas planas.
+
+One-hot encoding: Os rótulos (0–9) são convertidos para vetores binários de 10 posições, compatíveis com a função de perda categorical_crossentropy.
+
+python
+# Normalização
+X_train = X_train / 255.0
+X_test = X_test / 255.0
+
+# Flatten
+X_train = X_train.reshape((X_train.shape[0], 28*28))
+X_test = X_test.reshape((X_test.shape[0], 28*28))
+
+# One-hot encoding
+y_train = to_categorical(y_train, 10)
+y_test = to_categorical(y_test, 10)
+3. Construção do modelo MLP
+Arquitetura sequencial com duas camadas ocultas densas, ativação ReLU, dropout para regularização e camada de saída softmax.
 
 
