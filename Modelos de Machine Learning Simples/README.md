@@ -25,12 +25,9 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 
 ---
 
-
-
-Sumário
-Objetivo
-
-Procedimentos
+## **Sumário**
+### **Objetivo**
+### **Procedimentos**
 
 1. Importar bibliotecas e carregar os dados
 
@@ -46,17 +43,17 @@ Procedimentos
 
 7. Previsões e visualização
 
-Checklist da Atividade
+### **Checklist da Atividade**
 
-Resultados
+* Resultados
 
-Interpretação dos Gráficos
+* Interpretação dos Gráficos
 
-Tecnologias Utilizadas
+* Tecnologias Utilizadas
 
-Como Executar
+* Como Executar
 
-Conclusão e Próximos Passos
+* Conclusão e Próximos Passos
 
 ---
 
