@@ -42,7 +42,7 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 
 ## 📸 Captura de Tela
 
-![Interface principal do sistema](screenshots/interface_principal.png)
+![Interface principal do sistema](screenshots/interface_principal.jpeg)
 
 > *Menu principal com cards para cada grupo de ações e estatísticas em destaque.*
 
