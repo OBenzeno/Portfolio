@@ -46,12 +46,23 @@ class Biblioteca:
                         return True
         return False
 
-    def consultar_livros(self, parametro):
-        livros_encontrados = [
-            livro for livro in self.livros
-            if parametro.lower() in [livro.titulo.lower(), livro.autor.lower(), str(livro.ano)]
-        ]
-        return livros_encontrados
+    def consultar_livros_por_titulo(self, titulo):
+        """Retorna livros cujo título contenha a string fornecida (case insensitive)."""
+        titulo_lower = titulo.lower()
+        return [livro for livro in self.livros if titulo_lower in livro.titulo.lower()]
+
+    def consultar_livros_por_autor(self, autor):
+        """Retorna livros cujo autor contenha a string fornecida (case insensitive)."""
+        autor_lower = autor.lower()
+        return [livro for livro in self.livros if autor_lower in livro.autor.lower()]
+
+    def consultar_livros_por_ano(self, ano):
+        """Retorna livros publicados no ano exato (inteiro) fornecido."""
+        try:
+            ano_int = int(ano)
+            return [livro for livro in self.livros if livro.ano == ano_int]
+        except ValueError:
+            return []  # retorna vazio se não for número
 
     def gerar_relatorio(self):
         relatorio = "Livros disponíveis:\n"
