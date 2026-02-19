@@ -1,6 +1,5 @@
 ☁️ Prática de Banco de Dados em Nuvem – Modelagem de Relacionamentos
-
-https://img.shields.io/badge/MySQL-8.0-blue
+https://img.shields.io/badge/MySQL-8.0-blue <br>
 https://img.shields.io/badge/Workbench-Ferramenta-orange
 https://img.shields.io/badge/Cloud-AWS%20%7C%20GCP%20%7C%20Azure-lightgrey
 https://img.shields.io/badge/status-concluído-brightgreen
