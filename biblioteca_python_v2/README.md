@@ -150,9 +150,9 @@ Contribuições são sempre bem-vindas!
   4. Push para a branch (git push origin feature/AmazingFeature)
   5. Abra um Pull Request
 
-📝 Licença
+📝 Licença <br>
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-✉️ Contato
-Weslley B. de Andrade – @in/weslley-bitencourt – weslleybitencourt03@gmail.com
-Link do projeto: https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2
+✉️ Contato <br>
+Weslley B. de Andrade – [Weslley B. de Andrade](www.linkedin.com/in/weslley-bitencourt) – [email](weslleybitencourt03@gmail.com)
+Link do projeto: [biblioteca_python_v2](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
