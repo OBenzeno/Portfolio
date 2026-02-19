@@ -21,12 +21,45 @@
 
 <br>
 
----
-
 Este repositório contém a implementação de uma Rede Neural Multilayer Perceptron (MLP) para a classificação de dígitos manuscritos, utilizando o clássico conjunto de dados MNIST. O projeto foi desenvolvido como parte de uma atividade prática de Ciência de Dados, com o objetivo de construir, treinar e avaliar um modelo de aprendizado profundo para reconhecimento de padrões em imagens.
 
-## **Visão Geral do Projeto**
-O objetivo principal é desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) que sirva como base para uma aplicação mais ampla em uma empresa de tecnologia. O fluxo do projeto segue as etapas padrão de um pipeline de Machine Learning:
+---
 
 
+
+Sumário
+Objetivo
+
+Procedimentos
+
+1. Importar bibliotecas e carregar os dados
+
+2. Pré-processamento dos dados
+
+3. Construção do modelo MLP
+
+4. Compilação do modelo
+
+5. Treinamento do modelo
+
+6. Avaliação do modelo
+
+7. Previsões e visualização
+
+Checklist da Atividade
+
+Resultados
+
+Interpretação dos Gráficos
+
+Tecnologias Utilizadas
+
+Como Executar
+
+Conclusão e Próximos Passos
+
+---
+
+## **Objetivo**
+Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
 
