@@ -13,7 +13,7 @@
     align="left" 
     alt="Tensorflow" 
     title="Tensorflow"
-    width="120px"
+    width="110px"
     style="padding-right: 120px;" 
     src="https://img.shields.io/badge/TensorFlow-2+-orange.svg" 
 />
