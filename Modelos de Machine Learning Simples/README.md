@@ -4,8 +4,8 @@
     align="left" 
     alt="Python" 
     title="Python"
-    width="30px" 
-    style="padding-right: 80px;" 
+    width="80px" 
+    style="padding-right: 120px;" 
     src="https://img.shields.io/badge/python-3+-blue.svg" 
 />
 
