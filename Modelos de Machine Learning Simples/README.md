@@ -26,7 +26,10 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 ---
 
 ## **Sumário**
+
 ### **Objetivo**
+Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
+
 ### **Procedimentos**
 
 1. Importar bibliotecas e carregar os dados
@@ -57,6 +60,5 @@ Este repositório contém a implementação de uma Rede Neural Multilayer Percep
 
 ---
 
-## **Objetivo**
-Desenvolver um sistema de reconhecimento de dígitos manuscritos (0 a 9) utilizando uma rede neural do tipo Multilayer Perceptron (MLP). O modelo será treinado e avaliado com o conjunto de dados MNIST, seguindo as etapas padrão de um pipeline de machine learning.
+
 
