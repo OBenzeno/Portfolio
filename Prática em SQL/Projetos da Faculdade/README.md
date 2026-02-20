@@ -31,7 +31,7 @@ Este repositório reúne todas as atividades práticas desenvolvidas durante as 
 │   ├── diagrama_er_biblioteca.mwb.bak
 │   ├── diagrama_er_dinner_service.bak
 │   └── pratica_arquitetura_data_warehouse.bak
-├── 📁 pratica05_...
+├── 📁 projetos_futuros...
 └── 📄 README.md (este arquivo)
 ```
 
