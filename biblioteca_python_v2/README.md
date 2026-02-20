@@ -48,12 +48,12 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 ├── livro.py                # Classe Livro (modelo)
 ├── usuario.py              # Classe Usuario (modelo)
 ├── biblioteca_dados.json   # Arquivo de dados gerado automaticamente
-📁 __pycache__
-│   └── biblioteca.cpython-312.pyc
-│   └── biblioteca.cpython-314.pyc
-│   └── livro.cpython-312.pyc
-│   └── livro.cpython-314.pyc
-│   └── usuario.cpython-312.pyc
+📁 __pycache__/
+│   ├── biblioteca.cpython-312.pyc
+│   ├── biblioteca.cpython-314.pyc
+│   ├──livro.cpython-312.pyc
+│   ├── livro.cpython-314.pyc
+│   ├── usuario.cpython-312.pyc
 │   └── usuario.cpython-314.pyc
 ├── 📁 screenshots/            # Pasta com imagens para o README
 │   └── interface_principal.png
