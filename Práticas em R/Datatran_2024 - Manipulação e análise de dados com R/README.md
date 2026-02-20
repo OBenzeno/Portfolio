@@ -153,16 +153,6 @@ O script é modular e pode ser facilmente adaptado para outros anos ou bases de 
 
 Contribuições são bem-vindas! Sinta-se à vontade para abrir issues ou pull requests com melhorias, correções ou novas análises.  
 
-1. Faça um fork do projeto  
-2. Crie uma branch para sua feature:  
-   ```bash
-   git checkout -b feature/nova-analise
-   ```
-
-🤝 Como Contribuir
-
-Contribuições são bem‑vindas! Sinta‑se à vontade para abrir issues ou pull requests com melhorias, correções ou novas análises.
-
 1. Faça um fork do projeto.
 2. Crie uma branch para sua feature:  `git checkout -b feature/nova-analise`
 3. Commit suas mudanças:  `git commit -m 'Adiciona nova análise de ...'`
