@@ -125,6 +125,16 @@ Portanto, a modelagem 2FN já está em 3FN.
 
 - `dinner_food` é a tabela associativa, com chave composta e FKs para `dinner` e `food`.
 
+---
+
+## 📸 Captura de Tela
+
+![DER](DER/diagrama_er_arquitetura_data_warehouse.png)
+
+> *Menu principal com cards para cada grupo de ações e estatísticas em destaque.*
+
+---
+
 ## 🗂️ Estrutura de Tabelas SQL
 
 ```sql
