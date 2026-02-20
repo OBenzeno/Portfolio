@@ -131,3 +131,18 @@ A construção de um DER é o primeiro passo para garantir:
 - As entidades, atributos e relacionamentos foram definidos conforme a proposta.
 - O modelo atende aos requisitos funcionais da biblioteca.
 
+📝 Licença <br>
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
+
+✉️ Contato <br>
+[Linkedin](www.linkedin.com/in/weslley-bitencourt) - 
+[email](weslleybitencourt03@gmail.com) <br>
+
+⭐ Se este conteúdo foi útil, deixe uma estrela no repositório!
+
+🧩 Parte de uma série
+Confira também outros projetos da faculdade:
+- [Sistema de Gerenciamento de Biblioteca](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
+- [Data Warehouse do Jockey Club](https://github.com/OBenzeno/Portfolio/tree/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Arquitetura%20de%20Dados)
+- [Banco de Dados em Nuvem](https://github.com/OBenzeno/Portfolio/tree/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Banco%20de%20Dados%20em%20Nuvem)
+- Mais projetos em breve...
