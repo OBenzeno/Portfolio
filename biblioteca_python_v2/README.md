@@ -40,23 +40,6 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 
 ---
 
-## 📸 Captura de Tela
-
-![Interface principal do sistema](screenshots/interface_principal.jpeg)
-
-> *Menu principal com cards para cada grupo de ações e estatísticas em destaque.*
-
----
-
-## 🛠️ Tecnologias Utilizadas
-
-- **Python 3.8+** – Linguagem principal
-- **Tkinter** – Interface gráfica nativa
-- **JSON** – Armazenamento de dados
-- **POO** – Programação Orientada a Objetos (classes, herança, encapsulamento)
-
----
-
 ## 📁 Estrutura do Projeto
 ```
 📁 biblioteca_python_v2/
@@ -76,6 +59,23 @@ Agora, em 2026, transformei a antiga interface de console em uma aplicação vis
 │   └── interface_principal.png
 └── README.md               # Documentação
 ```
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- **Python 3.8+** – Linguagem principal
+- **Tkinter** – Interface gráfica nativa
+- **JSON** – Armazenamento de dados
+- **POO** – Programação Orientada a Objetos (classes, herança, encapsulamento)
+
+---
+
+## 📸 Captura de Tela
+
+![Interface principal do sistema](screenshots/interface_principal.jpeg)
+
+> *Menu principal com cards para cada grupo de ações e estatísticas em destaque.*
 
 ---
 
