@@ -123,8 +123,46 @@ Portanto, a modelagem 2FN já está em 3FN.
 
 - `dinner_food` é a tabela associativa, com chave composta e FKs para `dinner` e `food`.
 
+## 🗂️ Estrutura de Tabelas SQL
 
+```sql
+-- Tabela member
+CREATE TABLE member (
+    member_num INT PRIMARY KEY,
+    member_name VARCHAR(50),
+    member_address VARCHAR(100)
+);
 
+-- Tabela venue
+CREATE TABLE venue (
+    venue_code VARCHAR(5) PRIMARY KEY,
+    venue_desc VARCHAR(50)
+);
+
+-- Tabela food
+CREATE TABLE food (
+    food_code VARCHAR(5) PRIMARY KEY,
+    food_desc VARCHAR(50)
+);
+
+-- Tabela dinner
+CREATE TABLE dinner (
+    dinner_num VARCHAR(5) PRIMARY KEY,
+    dinner_date DATE,
+    member_num INT,
+    venue_code VARCHAR(5),
+    FOREIGN KEY (member_num) REFERENCES member(member_num),
+    FOREIGN KEY (venue_code) REFERENCES venue(venue_code)
+);
+
+-- Tabela associativa dinner_food
+CREATE TABLE dinner_food (
+    dinner_num VARCHAR(5),
+    food_code VARCHAR(5),
+    PRIMARY KEY (dinner_num, food_code),
+    FOREIGN KEY (dinner_num) REFERENCES dinner(dinner_num),
+    FOREIGN KEY (food_code) REFERENCES food(food_code)
+);
 
 
 
