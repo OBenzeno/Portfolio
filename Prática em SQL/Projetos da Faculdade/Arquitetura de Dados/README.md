@@ -163,11 +163,32 @@ CREATE TABLE dinner_food (
     FOREIGN KEY (dinner_num) REFERENCES dinner(dinner_num),
     FOREIGN KEY (food_code) REFERENCES food(food_code)
 );
+```
 
+## ✅ Vantagens da Normalização
 
+- **Eliminação de redundâncias** – Dados de membros, locais e alimentos são armazenados uma única vez.  
+- **Integridade referencial** – As chaves estrangeiras garantem que não haja referências inválidas.  
+- **Facilidade de manutenção** – Alterar o endereço de um membro ou a descrição de um prato é feito em um único lugar.  
+- **Consulta flexível** – Podemos facilmente obter, por exemplo, todos os jantares de um membro ou todos os pratos servidos em uma data.  
+- **Preparação para Data Warehouse** – Modelos normalizados são a base para construir Data Marts e cubos OLAP.  
 
+---
 
+## 📸 Resultados da Aula Prática
 
+- O diagrama `.mwb` está incluso neste repositório.  
+- As tabelas foram criadas conforme descrito.  
+- Relacionamentos configurados com as devidas chaves.  
+- Prints do diagrama e telas de edição podem ser incluídos no README real.  
+
+---
+
+## 🧠 Conclusão
+
+Esta prática demonstrou o processo de normalização de dados, partindo de uma tabela plana até um modelo na **3FN**. Compreender as formas normais é essencial para qualquer profissional de dados, garantindo qualidade, consistência e facilidade de manutenção.  
+
+A ferramenta **MySQL Workbench** mostrou-se eficiente para modelagem visual e geração de código SQL, permitindo rápida prototipação do esquema.
 
 
 
