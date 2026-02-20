@@ -1,11 +1,13 @@
 # 🍽️ Normalização de Dados – Data Warehouse do Jockey Club
 
-https://img.shields.io/badge/MySQL-8.0-blue
-https://img.shields.io/badge/Workbench-Modelagem-orange
-https://img.shields.io/badge/Normaliza%C3%A7%C3%A3o-1FN%2520%E2%86%92%25203FN-success
-https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen
+![MySQL](https://img.shields.io/badge/MySQL-8.0-blue)
+![Workbench](https://img.shields.io/badge/Workbench-Modelagem-orange)
+![Normalização](https://img.shields.io/badge/Normaliza%C3%A7%C3%A3o-1FN%20%E2%86%92%203FN-success)
+![Status](https://img.shields.io/badge/status-conclu%C3%ADdo-brightgreen)
 
-Projeto prático da disciplina Arquitetura de Dados, onde aplicamos conceitos de normalização (1FN, 2FN, 3FN) em uma tabela de um Data Warehouse de um restaurante, utilizando MySQL Workbench para modelagem entidade-relacionamento.
+Projeto prático da disciplina **Arquitetura de Dados**, onde aplicamos conceitos de normalização (**1FN, 2FN, 3FN**) em uma tabela de um **Data Warehouse** de um restaurante, utilizando **MySQL Workbench** para modelagem entidade-relacionamento.
+
+---
 
 ## 📖 Sobre o Projeto
 
