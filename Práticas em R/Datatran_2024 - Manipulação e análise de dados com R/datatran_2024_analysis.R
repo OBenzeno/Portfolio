@@ -28,6 +28,10 @@ colunas_para_limpar <- c("dia_semana", "causa_acidente", "tipo_acidente",
                          "tipo_pista", "tracado_via", "uso_solo")
 
 # Criar uma função para remover acentos e substituir "ç"
+# Necessário instalar o pacote `stringi` se não tiver
+if (!require(stringi)) install.packages("stringi")
+library(stringi)
+
 dados_limpos[colunas_para_limpar] <- lapply(dados_limpos[colunas_para_limpar], function(x) {
   if (is.character(x)) stri_trans_general(x, "Latin-ASCII") else x
 })
@@ -90,9 +94,10 @@ cat("Probabilidade de acidente fatal à noite:", round(prob_fatal_noite, 2), "%"
 prob_fatal_dia <- mean(acidentes_dia$classificacao_acidente == "Com Vitimas Fatais", na.rm = TRUE) * 100
 cat("Probabilidade de acidente fatal durante o Dia:", round(prob_fatal_dia, 2), "%")
 
-# Calcular P(Fatal Total)
-prob_fatal <- prob_fatal_dia + prob_fatal_noite
-cat("Probabilidade total de acidentes fatais (Dia + Noite):", round(prob_fatal, 2), "%")
+# Calcular P(Fatal Total) – ATENÇÃO: isso não é soma, é probabilidade total no dataset
+# Vamos calcular diretamente
+prob_fatal_total <- mean(dados_limpos$classificacao_acidente == "Com Vitimas Fatais", na.rm = TRUE) * 100
+cat("Probabilidade total de acidentes fatais:", round(prob_fatal_total, 2), "%")
 
 ## 6. Visualização dos Resultados com ggplot2
 
@@ -112,6 +117,10 @@ ggplot(acidentes_fase_dia, aes(x = fase_dia, y = fase_dia_prob, fill = fase_dia)
   theme(axis.text.x = element_text(angle = 45, hjust = 1))  
 
 # Como a Condição Climática afeta a ocorrência de acidentes? 
+# Necessário instalar o pacote scales se não tiver
+if (!require(scales)) install.packages("scales")
+library(scales)
+
 ggplot(clima_acidentes, aes(x = reorder(condicao_metereologica, -condicao_metereologica_prob), y = condicao_metereologica_prob, fill = condicao_metereologica)) +
   geom_bar(stat = "identity", show.legend = FALSE) +
   geom_text(aes(label = sprintf("%.1f%%", condicao_metereologica_prob)), hjust = -0.2, size = 3.5) + 
@@ -205,8 +214,8 @@ gravidade_veiculos <- dados_veiculos %>%
     media_feridos_graves = mean(feridos_graves, na.rm = TRUE)  
   )  
 
-# Teste estatístico (ANOVA para diferenças entre grupos)  
-summary(aov(mortos ~ categoria_veiculos, data = dados ))  
+# (Removida a ANOVA)
+# summary(aov(mortos ~ categoria_veiculos, data = dados ))  
 
 ## 8. Frequência e Proporção
 
@@ -351,6 +360,10 @@ list(Horário = horario_gravidade, Pista = pista_gravidade)
 
 ## 10. Análise de Texto das Causas de Acidentes: 
 # Criar um dataframe com as causas
+# Necessário instalar tidytext se não tiver
+if (!require(tidytext)) install.packages("tidytext")
+library(tidytext)
+
 causas <- dados_limpos %>%
   select(causa_acidente) %>%
   mutate(
@@ -421,7 +434,7 @@ causas_acidentes_fatais <- dados_limpos %>%
   mutate(proporcao = n / sum(n) * 100)
 
 # Visualizar resultado
-head(causas_fatais, 5)
+head(causas_acidentes_fatais, 5)
 
 # Gráfico
 ggplot(causas_acidentes_fatais, aes(x = categoria_causa, y = proporcao, fill = categoria_causa)) +
@@ -429,4 +442,4 @@ ggplot(causas_acidentes_fatais, aes(x = categoria_causa, y = proporcao, fill = c
   geom_text(aes(label = sprintf("%.1f%%", proporcao)), vjust = -0.5, size = 3.5) +
   labs(x = "Causa", y = "Proporção (%)") +
   theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
