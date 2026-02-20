@@ -9,7 +9,7 @@ Este repositório reúne todas as atividades práticas desenvolvidas durante as 
 ---
 
 ## 📂 Estrutura de Pastas
-
+```
 📦 Projetos da Faculdade
 ├── 📁 Arquitetura de Dados
 │   ├── 📁 DER
@@ -30,3 +30,5 @@ Este repositório reúne todas as atividades práticas desenvolvidas durante as 
 │   └── 📄 README.md
 ├── 📁 pratica05_...
 └── 📄 README.md (este arquivo)
+```
+
