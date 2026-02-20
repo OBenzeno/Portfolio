@@ -196,7 +196,7 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 
 ✉️ Contato <br>
 Weslley B. de Andrade – [Weslley B. de Andrade](www.linkedin.com/in/weslley-bitencourt) – [email](weslleybitencourt03@gmail.com)
-Link do projeto: [biblioteca_python_v2](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
+Link do projeto:[Banco de Dados em Nuvem](https://github.com/OBenzeno/Portfolio/blob/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Banco%20de%20Dados%20em%20Nuvem/pratica_cloud_db_aula.sql)
 
 ⭐ Se este conteúdo foi útil, deixe uma estrela no repositório!
 
@@ -204,4 +204,5 @@ Link do projeto: [biblioteca_python_v2](https://github.com/OBenzeno/Portfolio/tr
 Confira também outros projetos da faculdade:
 - [Sistema de Gerenciamento de Biblioteca](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
 - [Data Warehouse do Jockey Club](https://github.com/OBenzeno/Portfolio/tree/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Arquitetura%20de%20Dados)
+- [Modelagem de Dados – Sistema de Biblioteca Universitária](https://github.com/OBenzeno/Portfolio/tree/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Modelagem%20de%20Dados)
 - Mais projetos em breve...
