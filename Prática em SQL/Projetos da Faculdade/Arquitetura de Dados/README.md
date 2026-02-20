@@ -190,14 +190,17 @@ Esta prática demonstrou o processo de normalização de dados, partindo de uma 
 
 A ferramenta **MySQL Workbench** mostrou-se eficiente para modelagem visual e geração de código SQL, permitindo rápida prototipação do esquema.
 
+📝 Licença <br>
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
+✉️ Contato <br>
+Weslley B. de Andrade – [Weslley B. de Andrade](www.linkedin.com/in/weslley-bitencourt) – [email](weslleybitencourt03@gmail.com)
+Link do projeto: [biblioteca_python_v2](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
 
+⭐ Se este conteúdo foi útil, deixe uma estrela no repositório!
 
-
-
-
-
-
-
-
-
+🧩 Parte de uma série
+Confira também outros projetos da faculdade:
+- [Sistema de Gerenciamento de Biblioteca](https://github.com/OBenzeno/Portfolio/tree/main/biblioteca_python_v2)
+- [Banco de Dados em Nuvem](https://github.com/OBenzeno/Portfolio/tree/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Banco%20de%20Dados%20em%20Nuvem)
+- Mais projetos em breve...
