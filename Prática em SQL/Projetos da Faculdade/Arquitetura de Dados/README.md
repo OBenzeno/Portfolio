@@ -131,7 +131,7 @@ Portanto, a modelagem 2FN já está em 3FN.
 
 ![DER](DER/diagrama_er_arquitetura_data_warehouse.png)
 
-> *Menu principal com cards para cada grupo de ações e estatísticas em destaque.*
+> *Este é o Diagrama Entidade-Relacionamento (DER) que ilustra a estrutura normalizada do banco de dados após aplicar as formas normais. Ele apresenta as entidades, seus atributos e os relacionamentos entre elas.*
 
 ---
 
