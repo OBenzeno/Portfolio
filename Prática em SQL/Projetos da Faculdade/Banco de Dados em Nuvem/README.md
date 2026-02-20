@@ -195,9 +195,10 @@ O script pode servir como base para projetos mais complexos, e as instruções d
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
 ✉️ Contato <br>
-Weslley B. de Andrade – [Linkedin](www.linkedin.com/in/weslley-bitencourt)
-[email](weslleybitencourt03@gmail.com)
-Link do projeto:[Banco de Dados em Nuvem](https://github.com/OBenzeno/Portfolio/blob/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Banco%20de%20Dados%20em%20Nuvem/pratica_cloud_db_aula.sql)
+[Linkedin](www.linkedin.com/in/weslley-bitencourt) - 
+[email](weslleybitencourt03@gmail.com) <br>
+Link do projeto: <br>
+[Banco de Dados em Nuvem](https://github.com/OBenzeno/Portfolio/blob/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Banco%20de%20Dados%20em%20Nuvem/pratica_cloud_db_aula.sql)
 
 ⭐ Se este conteúdo foi útil, deixe uma estrela no repositório!
 
