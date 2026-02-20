@@ -202,6 +202,43 @@ Esta prática demonstrou o processo de normalização de dados, partindo de uma 
 
 A ferramenta **MySQL Workbench** mostrou-se eficiente para modelagem visual e geração de código SQL, permitindo rápida prototipação do esquema.
 
+## 🔮 Sugestões de Melhorias
+
+1. **Adicionar validações de dados na inserção**  
+   - Implementar **restrições de integridade** como `CHECK` para garantir que, por exemplo, os códigos de prato ou local sejam sempre válidos e dentro de um conjunto predefinido.
+   - Utilizar **triggers** para validar dados durante a inserção ou atualização, garantindo que, por exemplo, os dados de endereço de membros sejam sempre válidos ou que a data do jantar não seja no futuro.
+
+2. **Implementar controle de histórico de dados**  
+   - Adicionar uma tabela de **histórico de jantares** para armazenar registros antigos e possibilitar a auditoria de alterações feitas nos dados. A partir disso, seria possível registrar alterações em campos como `dinner_date`, `venue_code`, entre outros, para fins de análise e rastreabilidade.
+
+3. **Adicionar tabelas para categorização de alimentos e locais**  
+   - Criar tabelas adicionais para **categorias de alimentos** (ex.: entradas, pratos principais, sobremesas) e **categorias de locais** (ex.: salões, espaços ao ar livre). Isso facilitaria a análise por tipo de prato ou tipo de evento e possibilitaria uma organização mais rica dos dados.
+
+4. **Criar índices para otimizar consultas complexas**  
+   - Como o número de registros no banco pode crescer, seria interessante criar **índices** nas tabelas de alto volume de dados, como `dinner`, `member`, e `food`. Isso vai melhorar a performance das consultas mais comuns, como as que buscam jantares por data ou por prato.
+
+5. **Avançar para a Quarta ou Quinta Forma Normal (4FN/5FN)**  
+   - Caso o banco de dados comece a ter dependências multivaloradas ou mais complexas, pode ser necessário avançar para **4FN** ou **5FN**, eliminando dependências multivaloradas e garantindo que o modelo esteja o mais otimizado possível para consultas e integridade.
+
+6. **Adicionar funcionalidade de cancelamento ou alteração de jantares**  
+   - Criar uma lógica para **alteração ou cancelamento de jantares**. Caso um jantar precise ser cancelado ou modificado, o banco deve manter as referências aos dados anteriores e garantir que não haja dados quebrados ou inconsistentes.
+
+7. **Implementar relatórios e dashboards de visualização**  
+   - Para facilitar a análise de dados, seria interessante implementar **relatórios automáticos** e criar **dashboards interativos** usando ferramentas como **Tableau** ou **Power BI**. Isso pode fornecer insights sobre a frequência dos jantares, os pratos mais solicitados, e preferências dos membros.
+
+8. **Automatizar o processo de ETL**  
+   - Criar um processo **ETL (Extract, Transform, Load)** automatizado para carregar dados de outros sistemas de gerenciamento de jantares ou de membros, mantendo o Data Warehouse atualizado e livre de duplicidade de dados.
+
+9. **Adicionar suporte a múltiplos restaurantes ou locais**  
+   - Caso o Jockey Club possua mais de um restaurante ou evento, é interessante adaptar o modelo para suportar múltiplos **restaurantes** ou **localizações**. Isso incluiria a modificação da tabela `venue` para incluir referências a diferentes restaurantes, com a possibilidade de analisar dados separados por local.
+
+10. **Explorar o uso de Cloud e backup automatizado**  
+    - Para garantir maior escalabilidade e segurança, seria interessante explorar soluções de **Cloud** para armazenar e acessar os dados, como AWS, Google Cloud, ou Azure. Além disso, implementar um sistema de **backup automatizado** para garantir a proteção dos dados contra falhas.
+
+---
+
+Essas sugestões visam melhorar a performance, escalabilidade, e integridade do banco de dados, além de expandir as funcionalidades para tornar o sistema mais robusto e prático para análise.
+
 📝 Licença <br>
 Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
