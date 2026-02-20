@@ -245,7 +245,8 @@ Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes
 ✉️ Contato <br>
 [Linkedin](www.linkedin.com/in/weslley-bitencourt) - 
 [email](weslleybitencourt03@gmail.com) <br>
-Link do projeto: [Arquitetura de Data Warehouse](https://github.com/OBenzeno/Portfolio/blob/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Arquitetura%20de%20Dados/pratica_arquitetura_data_warehouse.sql)
+Link do projeto: <br>
+[Arquitetura de Data Warehouse](https://github.com/OBenzeno/Portfolio/blob/main/Pr%C3%A1tica%20em%20SQL/Projetos%20da%20Faculdade/Arquitetura%20de%20Dados/pratica_arquitetura_data_warehouse.sql)
 
 ⭐ Se este conteúdo foi útil, deixe uma estrela no repositório!
 
