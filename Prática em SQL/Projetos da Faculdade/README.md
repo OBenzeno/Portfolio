@@ -1,4 +1,4 @@
-# 📁 Práticas de SQL – Faculdade de Ciência de Dados
+# 📁 Práticas de SQL – Projetos da Faculdade
 
 ![SQL](https://img.shields.io/badge/SQL-MySQL-blue)
 ![Workbench](https://img.shields.io/badge/Workbench-Modelagem-orange)
