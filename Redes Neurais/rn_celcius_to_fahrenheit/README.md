@@ -153,7 +153,7 @@ jupyter notebook rn_celcius_fahrenheit.ipynb
 
 ### ▶️ Opção 2 – Executar no Google Colab
 
-[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/)
+[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)]([https://colab.research.google.com/](https://colab.research.google.com/drive/1zNAQ7zmkg6nVTy3_AYg0ujhaQZFWFScy?usp=sharing))
 
 Clique no link acima ou faça upload do arquivo `.ipynb` para o Colab. Não é necessária instalação local.
 
