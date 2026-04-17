@@ -4,10 +4,10 @@
 [![Python](https://img.shields.io/badge/Python-3.13-3776AB?logo=python)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
-O **notebook original**, com código executável, pode ser acessado pelo link:
-[https://colab.research.google.com/drive/rn_celcius_fahrenheit.ipynb](https://colab.research.google.com/drive/1zNAQ7zmkg6nVTy3_AYg0ujhaQZFWFScy?usp=sharing)
-
 Este projeto foi desenvolvido como atividade prática para a disciplina **Redes Neurais e Deep Learning**. O objetivo é criar um modelo preditivo usando **TensorFlow** e **Keras** que aprenda a converter temperaturas de Celsius para Fahrenheit a partir de exemplos, sem conhecer a fórmula matemática previamente.
+
+[![Abrir no Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1zNAQ7zmkg6nVTy3_AYg0ujhaQZFWFScy?usp=sharing) O **notebook original**, com código executável, pode ser acessado pelo link:
+
 
 ## 📌 Índice
 
