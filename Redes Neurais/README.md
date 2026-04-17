@@ -90,9 +90,7 @@ Testamos também arquiteturas com camadas ocultas e ativação ReLU, mas a conve
 
 O gráfico abaixo mostra a rápida queda do *loss* (MSE) nas primeiras épocas e a estabilização próxima de zero:
 
-![Curva de Loss](https://images/loss_curve.png)
-
-*(imagem gerada automaticamente pelo notebook)*
+![Curva de Loss](images/loss_curve.png)
 
 Observou-se que, a partir de aproximadamente **650 épocas**, o *loss* já se encontrava abaixo de **1,0**, e com **850 épocas** atingiu o valor final de **0,032**, demonstrando convergência adequada.
 
