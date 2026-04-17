@@ -20,7 +20,7 @@ Este projeto foi desenvolvido como atividade prática para a disciplina **Redes 
 
 ## 🧠 Sobre o Projeto
 
-No modelo tradicional de programação, converter Celsius para Fahrenheit é trivial: `F = C * 1.8 + 32`. Porém, este exercício simula um cenário de **Machine Learning supervisionado**:
+No modelo tradicional de programação, converter Celsius para Fahrenheit é trivial: `°F = °C * 1.8 + 32`. Porém, este exercício simula um cenário de **Machine Learning supervisionado**:
 
 - Não sabemos a fórmula de antemão.
 - Fornecemos apenas pares de exemplo (Celsius, Fahrenheit).
