@@ -52,14 +52,14 @@ Com **K = 2**, os pontos foram separados em dois grupos:
 ### Método do Cotovelo
 O gráfico abaixo mostra a inércia para valores de K de 1 a 10. A queda acentuada até K=2 e a redução marginal a partir de K=3 indicam que K=2 é a escolha ideal.
 
-![Método do Cotovelo](images/elbow_plot.png)
+![Método do Cotovelo](Machine Learning/images/elbow_plot.png)
 
 ---
 
 ### Agrupamento com K = 2
 A visualização dos dois clusters (vermelho e azul) e seus respectivos centroides (amarelo, formato "X") evidencia a separação clara dos dados.
 
-![Clusters com K=2](images/clusters_k2.png)
+![Clusters com K=2](Machine Learning/images/clusters_k2.png)
 
 ---
 
