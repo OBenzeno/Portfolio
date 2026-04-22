@@ -1,5 +1,12 @@
 # K-means Clustering - Machine Learning II
 
+![Python](https://img.shields.io/badge/Python-3.8%2B-blue?logo=python&logoColor=white)
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange?logo=jupyter&logoColor=white)
+![NumPy](https://img.shields.io/badge/NumPy-1.21%2B-blue?logo=numpy&logoColor=white)
+![Pandas](https://img.shields.io/badge/Pandas-1.3%2B-blue?logo=pandas&logoColor=white)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-3.4%2B-blue?logo=matplotlib&logoColor=white)
+![Scikit--learn](https://img.shields.io/badge/Scikit--learn-1.0%2B-blue?logo=scikit-learn&logoColor=white)
+
 **Autor:** Weslley Tiago Bitencourt de Andrade  
 **Disciplina:** Machine Learning II  
 **Objetivo:** Implementação e análise do algoritmo de agrupamento K-means em um conjunto de dados bidimensional, utilizando o método do cotovelo para determinar o número ideal de clusters.
@@ -40,6 +47,22 @@ Com **K = 2**, os pontos foram separados em dois grupos:
 
 ---
 
+## 📈 Gráficos gerados
+
+### Método do Cotovelo
+O gráfico abaixo mostra a inércia para valores de K de 1 a 10. A queda acentuada até K=2 e a redução marginal a partir de K=3 indicam que K=2 é a escolha ideal.
+
+![Método do Cotovelo](https://images/elbow_plot.png)
+
+---
+
+### Agrupamento com K = 2
+A visualização dos dois clusters (vermelho e azul) e seus respectivos centroides (amarelo, formato "X") evidencia a separação clara dos dados.
+
+![Clusters com K=2](https://images/clusters_k2.png)
+
+---
+
 ## 🖥️ Como executar
 
 ### 1. Clone o repositório:
@@ -64,6 +87,9 @@ pip install numpy pandas matplotlib scikit-learn
 ```
 .
 ├── kmeans_notebook.ipynb   # Notebook completo com código, gráficos e análise
+├── images/                 # Pasta com os gráficos gerados
+│   ├── elbow_plot.png      # Gráfico do método do cotovelo
+│   └── clusters_k2.png     # Gráfico de dispersão dos clusters (K=2)
 └── README.md               # Este arquivo
 ```
 
