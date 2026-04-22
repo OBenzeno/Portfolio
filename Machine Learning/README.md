@@ -107,6 +107,6 @@ Este projeto é de uso acadêmico e está disponível para consulta e estudo.
 
 ## 🔗 Links
 - [https://colab.research.google.com/kmeans_notebook.ipynb/ ](https://colab.research.google.com/drive/1syG2zp0zvqK6-VHEhDXK9MZYLRszqHcp?usp=sharing ) 
-- [GitHub - kmeans_notebook.ipynb]([https://github.com/OBenzeno/Portfolio/Redes%20Neurais/kmeans_notebook.ipynb](https://github.com/OBenzeno/Portfolio/tree/c35b8efe8cedb471fb10b64725b3ea21dd41fb61/Machine%20Learning/Kmeans))
+- [GitHub - kmeans_notebook.ipynb]([https://github.com/OBenzeno/Portfolio/Redes%20Neurais/kmeans_notebook.ipynb](https://github.com/OBenzeno/Portfolio/tree/c35b8efe8cedb471fb10b64725b3ea21dd41fb61/Machine%20Learning/Kmeans)
 
 Relatório gerado em conformidade com os requisitos da disciplina.
