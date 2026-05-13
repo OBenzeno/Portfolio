@@ -59,18 +59,25 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ```
 Análise de Vendas/
-├── dashboard.py          # Entry point — configuração, filtros e roteamento
-├── styles.py             # CSS global injetado via st.markdown
-├── data.py               # Carregamento, cache e transformação dos dados
-├── utils.py              # Constantes de tema, helpers e componentes reutilizáveis
-├── sidebar.py            # Sidebar com navegação e filtros interativos
-├── requirements.txt      # Dependências do projeto
+├── .streamlit/
+│   └── config.toml       # Configurações do tema e servidor
+├── data/
+│   └── vendas.csv.gz     # Dataset compactado (descompacte antes de executar)
+├── screenshots/
+│   ├── demo.gif
+│   ├── geografia.png
+│   ├── performance.png
+│   └── visao_geral.png
 ├── views/
-│   ├── visao_geral.py    # Página 1 — Visão Geral
+│   ├── geografia.py      # Página 3 — Geografia
 │   ├── performance.py    # Página 2 — Performance
-│   └── geografia.py      # Página 3 — Geografia
-└── data/
-    └── vendas.csv.gz     # Dataset compactado (descompacte antes de executar)
+│   └── visao_geral.py    # Página 1 — Visão Geral
+├── dashboard.py          # Entry point — configuração, filtros e roteamento
+├── data.py               # Carregamento, cache e transformação dos dados
+├── requirements.txt      # Dependências do projeto
+├── sidebar.py            # Sidebar com navegação e filtros interativos
+├── styles.py             # CSS global injetado via st.markdown
+└── utils.py              # Constantes de tema, helpers e componentes reutilizáveis
 ```
 
 ---
