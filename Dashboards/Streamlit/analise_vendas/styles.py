@@ -45,14 +45,14 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     background: #1a2235 !important;
     border: 1px solid #2a3550 !important;
     border-radius: 9px !important;
-    padding: 9px 14px !important;
+    padding: 12px 16px !important;
     cursor: pointer;
     width: 100%;
     display: flex !important;
     align-items: center;
     transition: all 0.15s ease;
     color: #cbd5e1 !important;
-    font-size: 13px !important;
+    font-size: 15px !important;
     font-weight: 500 !important;
 }
 [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:last-child,
