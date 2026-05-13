@@ -1,13 +1,13 @@
-<div align="left">
+<div align="center">
 
 # Análise de Vendas — Dashboard Interativo
 
 Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com navegação entre três páginas, filtros interativos e visualizações em tema escuro.
 
-[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.45%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Plotly](https://img.shields.io/badge/Plotly-5.24%2B-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.45%2B-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Plotly](https://img.shields.io/badge/Plotly-5.24%2B-3F4F75?style=flat&logo=plotly&logoColor=white)](https://plotly.com/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 
 </div>
 
@@ -15,29 +15,30 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ## Demonstração
 
-![Demo](screenshots/demo.gif)
+> **Adicione aqui um GIF do dashboard em execução.**
+> Sugestão: `![Demo](screenshots/demo.gif)`
 
 ---
 
 ## Páginas
+
+### Visão Geral
+<!-- Substitua pelo caminho do seu screenshot -->
+![Visão Geral](screenshots/visao_geral.png)
+
+### Performance
+<!-- Substitua pelo caminho do seu screenshot -->
+![Performance](screenshots/performance.png)
+
+### Geografia
+<!-- Substitua pelo caminho do seu screenshot -->
+![Geografia](screenshots/geografia.png)
 
 | # | Página | Visualizações |
 |---|--------|---------------|
 | 1 | **Visão Geral** | KPIs · Evolução Temporal · Top Categorias · Receita por Marca (Donut) · Top 10 Produtos |
 | 2 | **Performance** | Margem por Categoria · Receita vs Custo vs Lucro por Marca · Treemap Categoria × Marca |
 | 3 | **Geografia** | Mapa Coroplético Mundial · Top 15 Países · Receita por Continente |
-
-### Visão Geral
-<!-- Substitua pelo caminho do seu screenshot -->
-![Visão Geral](screenshots/screenshot_visao_geral.png)
-
-### Performance
-<!-- Substitua pelo caminho do seu screenshot -->
-![Performance](screenshots/screenshot_performance.png)
-
-### Geografia
-<!-- Substitua pelo caminho do seu screenshot -->
-![Geografia](screenshots/screenshot_geografia.png)
 
 ---
 
@@ -135,4 +136,4 @@ O dashboard abrirá automaticamente em `http://localhost:8501`.
 
 ## Deploy
 
-Hospedado via **Streamlit Community Cloud** — acesse em: [vendas_analise](https://share.streamlit.io/app/portfolio-2hstxopdyujpj9wr2pvd52)
+Hospedado via **Streamlit Community Cloud** — acesse em: `[link do deploy]`

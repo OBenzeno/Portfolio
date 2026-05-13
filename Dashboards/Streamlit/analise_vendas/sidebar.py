@@ -18,11 +18,15 @@ def render_sidebar(df_raw: pd.DataFrame, all_months: list) -> dict:
 
         st.markdown("---")
 
-        page = st.radio(
-            "Navegação",
-            options=["Visão Geral", "Performance", "Geografia"],
-            label_visibility="collapsed",
-        )
+        if "page" not in st.session_state:
+            st.session_state["page"] = "Visão Geral"
+        _nav = ["Visão Geral", "Performance", "Geografia"]
+        for _p in _nav:
+            _type = "primary" if st.session_state["page"] == _p else "secondary"
+            if st.button(_p, key=f"nav_{_p}", use_container_width=True, type=_type):
+                st.session_state["page"] = _p
+                st.rerun()
+        page = st.session_state["page"]
 
         st.markdown("---")
 

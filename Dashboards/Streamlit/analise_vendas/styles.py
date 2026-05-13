@@ -35,85 +35,60 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     border-bottom: 1px solid #2a3550;
 }
 
-/* ── Nav radio como botões verticais ── */
-[data-testid="stSidebar"] [role="radiogroup"] {
-    gap: 4px !important;
-    display: flex;
-    flex-direction: column;
+/* ── Nav buttons ── */
+[data-testid="stSidebar"] .stButton > button {
+    border-radius: 9px !important;
+    padding: 10px 16px !important;
     width: 100% !important;
+    text-align: left !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.15s ease !important;
+    box-sizing: border-box !important;
+    display: flex !important;
+    align-items: center !important;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] {
+[data-testid="stSidebar"] .stButton > button p { margin: 0 !important; }
+[data-testid="stSidebar"] .stButton > button[kind="secondary"] {
     background: #1a2235 !important;
     border: 1px solid #2a3550 !important;
-    border-radius: 9px !important;
-    padding: 12px 16px !important;
-    cursor: pointer;
-    width: 100% !important;
-    display: flex !important;
-    align-items: center;
-    transition: all 0.15s ease;
     color: #cbd5e1 !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    min-height: 48px !important;
-    box-sizing: border-box !important;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:last-child,
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:last-child * {
-    color: inherit !important;
-}
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:hover {
+[data-testid="stSidebar"] .stButton > button[kind="secondary"]:hover {
     background: #1e2a40 !important;
     border-color: #4f8ef7 !important;
     color: #f1f5f9 !important;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:active {
-    transform: scale(0.97) !important;
-    background: #172333 !important;
-    border-color: #4f8ef7 !important;
-    box-shadow: 0 0 8px rgba(79,142,247,0.2) !important;
-    transition: transform 0.08s ease, background 0.08s ease !important;
-}
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
+[data-testid="stSidebar"] .stButton > button[kind="primary"] {
     background: linear-gradient(135deg,#1e3a5f,#172641) !important;
     border-color: #4f8ef7 !important;
     color: #60a5fa !important;
     font-weight: 600 !important;
     box-shadow: 0 0 10px rgba(79,142,247,0.12) !important;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) > div:last-child,
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) > div:last-child * {
-    color: #60a5fa !important;
-}
-/* oculta o círculo mas mantém o input funcional */
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
-    display: none !important;
-}
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] input {
-    position: absolute;
-    opacity: 0;
-    width: 0;
-    height: 0;
+[data-testid="stSidebar"] .stButton > button:active {
+    transform: scale(0.97) !important;
+    transition: transform 0.08s ease !important;
 }
 /* ── Nav SVG icons ── */
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]::before {
+[data-testid="stSidebar"] .stButton > button::before {
     content: '';
     display: inline-block;
     width: 17px;
     height: 17px;
+    min-width: 17px;
     margin-right: 10px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
-    flex-shrink: 0;
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:nth-child(1)::before {
+[data-testid="stSidebar"] :nth-child(1 of :has(.stButton)) > .stButton > button::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300d4a0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z'/%3E%3Cpolyline points='9 22 9 12 15 12 15 22'/%3E%3C/svg%3E");
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:nth-child(2)::before {
+[data-testid="stSidebar"] :nth-child(2 of :has(.stButton)) > .stButton > button::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%234f8ef7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='2' y='13' width='4' height='8' rx='1'/%3E%3Crect x='9' y='8' width='4' height='13' rx='1'/%3E%3Crect x='16' y='3' width='4' height='18' rx='1'/%3E%3C/svg%3E");
 }
-[data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"]:nth-child(3)::before {
+[data-testid="stSidebar"] :nth-child(3 of :has(.stButton)) > .stButton > button::before {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cline x1='2' y1='12' x2='22' y2='12'/%3E%3Cpath d='M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z'/%3E%3C/svg%3E");
 }
 

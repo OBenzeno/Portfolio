@@ -64,12 +64,18 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ── Filtro base ───────────────────────────────────────────────────────────────
-df_base = df_raw[
-    (df_raw["Mês"] >= sd_month) &
-    (df_raw["Mês"] <= ed_month) &
-    (df_raw["Categoria"].isin(sel_cats  if sel_cats  else cats)) &
-    (df_raw["Marca"].isin(sel_brands if sel_brands else brands))
-].copy()
+@st.cache_data(show_spinner=False)
+def _filter(df, sd, ed, cats_t, brands_t):
+    return df[
+        (df["Mês"] >= sd) &
+        (df["Mês"] <= ed) &
+        (df["Categoria"].isin(cats_t)) &
+        (df["Marca"].isin(brands_t))
+    ].copy()
+
+_cats_t   = tuple(sorted(sel_cats   if sel_cats   else cats))
+_brands_t = tuple(sorted(sel_brands if sel_brands else brands))
+df_base   = _filter(df_raw, sd_month, ed_month, _cats_t, _brands_t)
 
 if df_base.empty:
     st.warning("Nenhum dado para os filtros selecionados.")
