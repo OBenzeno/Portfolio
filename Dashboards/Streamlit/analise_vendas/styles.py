@@ -54,6 +54,8 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     color: #cbd5e1 !important;
     font-size: 15px !important;
     font-weight: 500 !important;
+    min-height: 48px !important;
+    box-sizing: border-box !important;
 }
 [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:last-child,
 [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] > div:last-child * {
