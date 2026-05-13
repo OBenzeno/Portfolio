@@ -19,6 +19,8 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ---
 
+## Páginas
+
 | # | Página | Visualizações |
 |---|--------|---------------|
 | 1 | **Visão Geral** | KPIs · Evolução Temporal · Top Categorias · Receita por Marca (Donut) · Top 10 Produtos |
