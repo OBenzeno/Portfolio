@@ -27,6 +27,18 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 | 2 | **Performance** | Margem por Categoria · Receita vs Custo vs Lucro por Marca · Treemap Categoria × Marca |
 | 3 | **Geografia** | Mapa Coroplético Mundial · Top 15 Países · Receita por Continente |
 
+### Visão Geral
+<!-- Substitua pelo caminho do seu screenshot -->
+![Visão Geral](screenshots/screenshot_visao_geral.png)
+
+### Performance
+<!-- Substitua pelo caminho do seu screenshot -->
+![Performance](screenshots/screenshot_performance.png)
+
+### Geografia
+<!-- Substitua pelo caminho do seu screenshot -->
+![Geografia](screenshots/screenshot_geografia.png)
+
 ---
 
 ## Funcionalidades
