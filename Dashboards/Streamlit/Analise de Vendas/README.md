@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
 
 # Análise de Vendas — Dashboard Interativo
 
@@ -15,30 +15,29 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ## Demonstração
 
-> **Adicione aqui um GIF do dashboard em execução.**
-> Sugestão: `![Demo](screenshots/demo.gif)`
+![Demo](screenshots/Demo.git)
 
 ---
 
 ## Páginas
-
-### Visão Geral
-<!-- Substitua pelo caminho do seu screenshot -->
-![Visão Geral](screenshots/visao_geral.png)
-
-### Performance
-<!-- Substitua pelo caminho do seu screenshot -->
-![Performance](screenshots/performance.png)
-
-### Geografia
-<!-- Substitua pelo caminho do seu screenshot -->
-![Geografia](screenshots/geografia.png)
 
 | # | Página | Visualizações |
 |---|--------|---------------|
 | 1 | **Visão Geral** | KPIs · Evolução Temporal · Top Categorias · Receita por Marca (Donut) · Top 10 Produtos |
 | 2 | **Performance** | Margem por Categoria · Receita vs Custo vs Lucro por Marca · Treemap Categoria × Marca |
 | 3 | **Geografia** | Mapa Coroplético Mundial · Top 15 Países · Receita por Continente |
+
+### Visão Geral
+<!-- Substitua pelo caminho do seu screenshot -->
+![Visão Geral](screenshots/screenshot_visao_geral.png)
+
+### Performance
+<!-- Substitua pelo caminho do seu screenshot -->
+![Performance](screenshots/screenshot_performance.png)
+
+### Geografia
+<!-- Substitua pelo caminho do seu screenshot -->
+![Geografia](screenshots/screenshot_geografia.png)
 
 ---
 
@@ -136,4 +135,4 @@ O dashboard abrirá automaticamente em `http://localhost:8501`.
 
 ## Deploy
 
-Hospedado via **Streamlit Community Cloud** — acesse em: `[link do deploy]`
+Hospedado via **Streamlit Community Cloud** — acesse em: `[streamlit-vendas-analytics](https://portfolio-vendas-analytics.streamlit.app/)`
