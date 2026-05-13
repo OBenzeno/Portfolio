@@ -42,7 +42,6 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     flex-direction: column;
     width: 100% !important;
 }
-}
 [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] {
     background: #1a2235 !important;
     border: 1px solid #2a3550 !important;
