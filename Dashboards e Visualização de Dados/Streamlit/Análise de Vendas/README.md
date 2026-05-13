@@ -49,7 +49,8 @@ dashboards_py/
 │   ├── visao_geral.py    # Página 1 — Visão Geral
 │   ├── performance.py    # Página 2 — Performance
 │   └── geografia.py      # Página 3 — Geografia
-└── vendas.csv            # Dataset (Jun/2017 – Ago/2019 · 203.888 registros)
+└── data/
+    └── vendas.csv.gz     # Dataset compactado (Jun/2017 – Ago/2019 · 203.888 registros)
 ```
 
 ---
@@ -63,10 +64,13 @@ git clone https://github.com/seu-usuario/seu-repo.git
 # 2. Acesse a pasta do projeto
 cd "Dashboards e Visualização de Dados/Streamlit/Análise de Vendas"
 
-# 3. Instale as dependências
+# 3. Descompacte o dataset
+gunzip data/vendas.csv.gz
+
+# 4. Instale as dependências
 pip install streamlit plotly pandas
 
-# 4. Execute o dashboard
+# 5. Execute o dashboard
 streamlit run dashboard.py
 ```
 
@@ -74,9 +78,9 @@ streamlit run dashboard.py
 
 ## Dataset
 
-O arquivo `vendas.csv` contém registros de vendas de **Jun/2017 a Ago/2019** com as seguintes colunas principais:
+O arquivo `data/vendas.csv.gz` (compactado, ~2 MB) contém registros de vendas de **Jun/2017 a Ago/2019**. Descompacte com `gunzip data/vendas.csv.gz` antes de executar.
 
-`Data da Venda · Produto · Categoria · Marca · Localidade · PrecoUnitario · Custo Unitário · Qtd. Vendida · Nome Cliente`
+Colunas principais: `Data da Venda · Produto · Categoria · Marca · Localidade · PrecoUnitario · Custo Unitário · Qtd. Vendida · Nome Cliente`
 
 ---
 

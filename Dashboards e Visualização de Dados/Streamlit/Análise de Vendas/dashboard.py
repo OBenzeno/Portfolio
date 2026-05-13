@@ -17,7 +17,7 @@ st.set_page_config(
 st.markdown(CSS, unsafe_allow_html=True)
 
 # ── Dados ─────────────────────────────────────────────────────────────────────
-CSV_PATH = str(Path(__file__).parent / "vendas.csv")
+CSV_PATH = str(Path(__file__).parent / "data" / "vendas.csv")
 try:
     df_raw = load_data(CSV_PATH)
 except Exception as e:
