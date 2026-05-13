@@ -40,6 +40,8 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     gap: 4px !important;
     display: flex;
     flex-direction: column;
+    width: 100% !important;
+}
 }
 [data-testid="stSidebar"] [role="radiogroup"] label[data-baseweb="radio"] {
     background: #1a2235 !important;
@@ -47,7 +49,7 @@ html, body, [class*="css"] { font-family: 'Inter', sans-serif; }
     border-radius: 9px !important;
     padding: 12px 16px !important;
     cursor: pointer;
-    width: 100%;
+    width: 100% !important;
     display: flex !important;
     align-items: center;
     transition: all 0.15s ease;
