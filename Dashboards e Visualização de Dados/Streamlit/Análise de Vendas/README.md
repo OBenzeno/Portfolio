@@ -15,8 +15,7 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ## Demonstração
 
-> **Adicione aqui um GIF do dashboard em execução.**
-> Sugestão: `![Demo](docs/demo.gif)`
+![Demo](screenshots/screenshot_gif.gif)
 
 ---
 
