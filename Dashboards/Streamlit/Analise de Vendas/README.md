@@ -15,7 +15,7 @@ Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com n
 
 ## Demonstração
 
-![Demo](screenshots/Demo.git)
+![Demo](screenshots/demo.gif)
 
 ---
 
