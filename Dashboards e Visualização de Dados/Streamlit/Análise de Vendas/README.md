@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
 
 # Análise de Vendas — Dashboard Interativo
 
