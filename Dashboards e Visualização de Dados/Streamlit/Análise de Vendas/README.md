@@ -1,65 +1,90 @@
+<div align="center">
+
 # Análise de Vendas — Dashboard Interativo
 
-Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com navegação entre três páginas, filtros interativos e visualizações responsivas em tema escuro.
+Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com navegação entre três páginas, filtros interativos e visualizações em tema escuro.
+
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.45%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Plotly](https://img.shields.io/badge/Plotly-5.24%2B-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+
+</div>
 
 ---
 
-## Visão Geral
+## Demonstração
 
-| Página | Conteúdo |
-|---|---|
-| **Visão Geral** | KPIs, Evolução Temporal, Top Categorias, Receita por Marca (Donut), Top Produtos |
-| **Performance** | Margem por Categoria, Receita vs Custo vs Lucro por Marca, Treemap Categoria × Marca |
-| **Geografia** | Mapa Coroplético Mundial, Top 15 Países, Receita por Continente |
+> **Adicione aqui um GIF do dashboard em execução.**
+> Sugestão: `![Demo](docs/demo.gif)`
 
 ---
 
-## Stack
+## Páginas
 
-- **Python 3.11+**
-- **Streamlit 1.45+**
-- **Plotly 5.x**
-- **Pandas**
+### Visão Geral
+<!-- Substitua pelo caminho do seu screenshot -->
+![Visão Geral](screenshots/screenshot_visao_geral.png)
+
+### Performance
+<!-- Substitua pelo caminho do seu screenshot -->
+![Performance](screenshots/screenshot_performance.png)
+
+### Geografia
+<!-- Substitua pelo caminho do seu screenshot -->
+![Geografia](screenshots/screenshot_geografia.png)
+
+| # | Página | Visualizações |
+|---|--------|---------------|
+| 1 | **Visão Geral** | KPIs · Evolução Temporal · Top Categorias · Receita por Marca (Donut) · Top 10 Produtos |
+| 2 | **Performance** | Margem por Categoria · Receita vs Custo vs Lucro por Marca · Treemap Categoria × Marca |
+| 3 | **Geografia** | Mapa Coroplético Mundial · Top 15 Países · Receita por Continente |
 
 ---
 
 ## Funcionalidades
 
-- Filtro de período por ano ou intervalo personalizado
-- Filtro de categoria e marca via checkboxes
-- Filtro de continente via pills interativos
-- Série temporal com drill-down por zoom (ano → mês)
-- Labels com quebra de linha automática nos gráficos de barras
-- Treemap com paleta de cores mutada para melhor contraste
-- Tema escuro customizado com CSS e animação de fade-in entre páginas
-- Sidebar com navegação estilizada (ícones SVG + botões pill)
+- **Filtros globais** — período (por ano ou intervalo personalizado), categoria e marca via checkboxes na sidebar
+- **Filtro de continente** — pills interativos na página de Geografia
+- **Série temporal com drill-down** — visualização anual com zoom para nível mensal via `tickformatstops`
+- **KPI cards** — receita, lucro, margem, quantidade e clientes únicos, com variação percentual
+- **Quebra de linha automática** — labels longas nos gráficos de barras quebram por palavra
+- **Treemap** — paleta de cores mutada para melhor contraste em tema escuro
+- **Mapa coroplético** — choropleth mundial com escala de cor e tooltip por país
+- **Tema escuro customizado** — CSS injetado com animação de fade-in entre páginas
+- **Sidebar estilizada** — ícones SVG + botões pill para navegação entre páginas
 
 ---
 
 ## Estrutura do Projeto
 
 ```
-dashboards_py/
-├── dashboard.py          # Entry point / orquestrador
-├── styles.py             # CSS global
-├── data.py               # Carregamento e transformação dos dados
-├── utils.py              # Constantes, helpers e componentes reutilizáveis
-├── sidebar.py            # Sidebar com navegação e filtros
+Análise de Vendas/
+├── dashboard.py          # Entry point — configuração, filtros e roteamento
+├── styles.py             # CSS global injetado via st.markdown
+├── data.py               # Carregamento, cache e transformação dos dados
+├── utils.py              # Constantes de tema, helpers e componentes reutilizáveis
+├── sidebar.py            # Sidebar com navegação e filtros interativos
+├── requirements.txt      # Dependências do projeto
 ├── views/
 │   ├── visao_geral.py    # Página 1 — Visão Geral
 │   ├── performance.py    # Página 2 — Performance
 │   └── geografia.py      # Página 3 — Geografia
 └── data/
-    └── vendas.csv.gz     # Dataset compactado (Jun/2017 – Ago/2019 · 203.888 registros)
+    └── vendas.csv.gz     # Dataset compactado (descompacte antes de executar)
 ```
 
 ---
 
 ## Como Executar Localmente
 
+**Pré-requisito:** Python 3.11+
+
 ```bash
-# 1. Clone o repositório
-git clone https://github.com/seu-usuario/seu-repo.git
+# 1. Clone apenas esta pasta (sparse checkout)
+git clone --filter=blob:none --sparse https://github.com/Obenzeno/Portfolio.git
+cd Portfolio
+git sparse-checkout set "Dashboards e Visualização de Dados/Streamlit/Análise de Vendas"
 
 # 2. Acesse a pasta do projeto
 cd "Dashboards e Visualização de Dados/Streamlit/Análise de Vendas"
@@ -67,23 +92,46 @@ cd "Dashboards e Visualização de Dados/Streamlit/Análise de Vendas"
 # 3. Descompacte o dataset
 gunzip data/vendas.csv.gz
 
-# 4. Instale as dependências
-pip install streamlit plotly pandas
+# 4. (Opcional) Crie e ative um ambiente virtual
+python -m venv .venv
+source .venv/bin/activate      # Linux/macOS
+.venv\Scripts\activate         # Windows
 
-# 5. Execute o dashboard
+# 5. Instale as dependências
+pip install -r requirements.txt
+
+# 6. Execute o dashboard
 streamlit run dashboard.py
 ```
+
+O dashboard abrirá automaticamente em `http://localhost:8501`.
 
 ---
 
 ## Dataset
 
-O arquivo `data/vendas.csv.gz` (compactado, ~2 MB) contém registros de vendas de **Jun/2017 a Ago/2019**. Descompacte com `gunzip data/vendas.csv.gz` antes de executar.
+| Atributo | Detalhe |
+|----------|---------|
+| Período | Jun/2017 – Ago/2019 |
+| Registros | ~204 mil linhas |
+| Arquivo | `data/vendas.csv.gz` (~2 MB compactado) |
 
-Colunas principais: `Data da Venda · Produto · Categoria · Marca · Localidade · PrecoUnitario · Custo Unitário · Qtd. Vendida · Nome Cliente`
+**Colunas principais:**
+
+| Coluna | Descrição |
+|--------|-----------|
+| `Data da Venda` | Data da transação |
+| `Produto` | Nome do produto |
+| `Categoria` | Categoria do produto |
+| `Marca` | Marca do produto |
+| `Localidade` | País e continente |
+| `PrecoUnitario` | Preço de venda unitário |
+| `Custo Unitário` | Custo unitário do produto |
+| `Qtd. Vendida` | Quantidade vendida |
+| `Nome Cliente` | Identificação do cliente |
 
 ---
 
 ## Deploy
 
-Hospedado via **Streamlit Community Cloud**.
+Hospedado via **Streamlit Community Cloud** — acesse em: `[link do deploy]`
