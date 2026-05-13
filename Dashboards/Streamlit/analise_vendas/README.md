@@ -4,10 +4,10 @@
 
 Dashboard analítico de vendas construído com **Streamlit** e **Plotly**, com navegação entre três páginas, filtros interativos e visualizações em tema escuro.
 
-[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=flat&logo=python&logoColor=white)](https://www.python.org/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-1.45%2B-FF4B4B?style=flat&logo=streamlit&logoColor=white)](https://streamlit.io/)
-[![Plotly](https://img.shields.io/badge/Plotly-5.24%2B-3F4F75?style=flat&logo=plotly&logoColor=white)](https://plotly.com/)
-[![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=flat&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+[![Python](https://img.shields.io/badge/Python-3.11%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![Streamlit](https://img.shields.io/badge/Streamlit-1.45%2B-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Plotly](https://img.shields.io/badge/Plotly-5.24%2B-3F4F75?style=for-the-badge&logo=plotly&logoColor=white)](https://plotly.com/)
+[![Pandas](https://img.shields.io/badge/Pandas-2.2%2B-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
 
 </div>
 
