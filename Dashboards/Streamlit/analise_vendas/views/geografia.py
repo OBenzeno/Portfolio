@@ -81,7 +81,7 @@ def render(df_base: pd.DataFrame, receita_total: float):
             margin=dict(l=0, r=0, t=36, b=0),
             height=420,
             title=dict(text="Receita por País", font=dict(size=13, color="#e2e8f0"), x=0.01),
-            font_color=FONT,
+            font=dict(color=FONT),
         )
         st.plotly_chart(fig, use_container_width=True)
 
