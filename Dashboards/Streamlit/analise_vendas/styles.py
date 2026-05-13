@@ -218,6 +218,7 @@ hr { border-color: #1e2535; }
     font-weight: 500 !important;
     width: 100% !important;
     min-width: 0 !important;
+    min-height: auto !important;
     box-shadow: none !important;
 }
 [data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
