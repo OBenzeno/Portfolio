@@ -74,9 +74,8 @@ def render(df_base: pd.DataFrame, receita_total: float):
                 projection_type="natural earth",
             ),
             coloraxis_colorbar=dict(
-                title="Receita",
+                title=dict(text="Receita", font=dict(color=FONT, size=11)),
                 tickfont=dict(color=FONT, size=10),
-                titlefont=dict(color=FONT, size=11),
                 bgcolor=BG, bordercolor=GRID,
             ),
             margin=dict(l=0, r=0, t=36, b=0),
