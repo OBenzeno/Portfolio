@@ -175,42 +175,29 @@ hr { border-color: #1e2535; }
     color: #94a3b8 !important; text-transform: uppercase !important;
     letter-spacing: 0.8px !important; margin: 0 0 4px 0 !important;
 }
-/* ── Period radio como pills em grid ── */
-[data-testid="stSidebar"] details [role="radiogroup"] {
-    display: grid !important;
-    grid-template-columns: 1fr 1fr 1fr !important;
-    gap: 4px !important;
-    padding: 2px 0 4px !important;
+/* ── Botões dentro dos expanders (período) ── */
+[data-testid="stSidebar"] details .stButton > button {
+    padding: 6px 4px !important;
+    font-size: 12px !important;
+    justify-content: center !important;
+    text-align: center !important;
+    box-shadow: none !important;
+    font-weight: 500 !important;
 }
-[data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"] {
+[data-testid="stSidebar"] details .stButton > button::before {
+    display: none !important;
+}
+[data-testid="stSidebar"] details .stButton > button[kind="secondary"] {
     background: #1a2235 !important;
     border: 1px solid #2a3550 !important;
-    border-radius: 8px !important;
-    padding: 6px 4px !important;
-    justify-content: center !important;
-    font-size: 12px !important;
     color: #cbd5e1 !important;
-    font-weight: 500 !important;
-    width: 100% !important;
-    min-width: 0 !important;
-    min-height: auto !important;
-    box-shadow: none !important;
 }
-[data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"]:has(input:checked) {
+[data-testid="stSidebar"] details .stButton > button[kind="primary"] {
     background: #1e3a5f !important;
     border-color: #4f8ef7 !important;
     color: #60a5fa !important;
     font-weight: 600 !important;
-}
-[data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"] > div:first-child {
-    display: none !important;
-}
-[data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"]::before {
-    display: none !important;
-}
-/* "Personalizado" ocupa colunas 2-3 (5º item) */
-[data-testid="stSidebar"] details [role="radiogroup"] label[data-baseweb="radio"]:nth-child(5) {
-    grid-column: 2 / 4 !important;
+    box-shadow: none !important;
 }
 
 

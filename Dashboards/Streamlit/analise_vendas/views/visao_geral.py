@@ -71,14 +71,21 @@ def render(
             df_base.groupby("Categoria")["Receita"]
             .sum().sort_values(ascending=True).tail(10).reset_index()
         )
+        by_cat["_txt"] = by_cat["Receita"].apply(fmt_brl)
         fig = px.bar(by_cat, x="Receita", y="Categoria", orientation="h",
-                     color="Receita", color_continuous_scale=["#1e3a5f", "#60a5fa"])
-        fig.update_traces(hovertemplate="<b>%{y}</b><br>R$ %{x:,.0f}<extra></extra>")
+                     color="Receita", color_continuous_scale=["#1e3a5f", "#60a5fa"],
+                     text="_txt")
+        fig.update_traces(
+            hovertemplate="<b>%{y}</b><br>R$ %{x:,.0f}<extra></extra>",
+            textposition="outside",
+            textfont=dict(color="#cbd5e1", size=13),
+            cliponaxis=False,
+        )
         fig.update_layout(coloraxis_showscale=False)
         theme(fig, "Top 10 Categorias por Receita")
         fig.update_layout(
-            xaxis=dict(tickformat=",.0f", tickprefix="R$ "),
-            yaxis=dict(range=[-0.52, len(by_cat) - 0.48]),
+            xaxis=dict(tickformat=".2s", tickprefix="R$ ", range=[0, 25_000_000], dtick=5_000_000, showgrid=True),
+            yaxis=dict(range=[-0.52, len(by_cat) - 0.48], showgrid=False),
         )
         st.plotly_chart(fig, use_container_width=True)
 

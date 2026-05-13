@@ -114,12 +114,22 @@ def render(df_base: pd.DataFrame, receita_total: float):
         df_geo.groupby("Continente")["Receita"]
         .sum().sort_values(ascending=True).reset_index()
     )
+    by_cont["_txt"] = by_cont["Receita"].apply(fmt_brl)
     fig = px.bar(by_cont, x="Receita", y="Continente", orientation="h",
-                 color="Continente", color_discrete_sequence=COLORS)
-    fig.update_traces(hovertemplate="<b>%{y}</b><br>R$ %{x:,.0f}<extra></extra>")
+                 color="Continente", color_discrete_sequence=COLORS,
+                 text="_txt")
+    fig.update_traces(
+        hovertemplate="<b>%{y}</b><br>R$ %{x:,.0f}<extra></extra>",
+        textposition="inside",
+        insidetextanchor="end",
+        textfont=dict(color="#f1f5f9", size=15),
+        constraintext="inside",
+    )
     theme(fig, "Receita por Continente", height=280)
     fig.update_layout(
         showlegend=False, yaxis_title="",
-        xaxis=dict(tickformat=",.0f", tickprefix="R$ "),
+        bargap=0.15,
+        xaxis=dict(tickformat=".2s", tickprefix="R$ ", showgrid=True),
+        yaxis=dict(showgrid=False),
     )
     st.plotly_chart(fig, use_container_width=True)

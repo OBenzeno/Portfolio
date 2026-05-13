@@ -33,12 +33,27 @@ def render_sidebar(df_raw: pd.DataFrame, all_months: list) -> dict:
         # ── Filtro de Período ──
         with st.expander("PERÍODO", expanded=True):
             anos_disp = [str(a) for a in sorted(df_raw["Ano"].unique())]
-            sel_preset = st.radio(
-                "período",
-                options=anos_disp + ["Tudo", "Personalizado"],
-                index=len(anos_disp),
-                label_visibility="collapsed",
-            )
+            if "period" not in st.session_state:
+                st.session_state["period"] = "Tudo"
+            sel_preset = st.session_state["period"]
+
+            _cols = st.columns(len(anos_disp))
+            for i, ano in enumerate(anos_disp):
+                _t = "primary" if sel_preset == ano else "secondary"
+                if _cols[i].button(ano, key=f"period_{ano}", use_container_width=True, type=_t):
+                    st.session_state["period"] = ano
+                    st.rerun()
+
+            _c1, _c2 = st.columns([1, 2])
+            _t = "primary" if sel_preset == "Tudo" else "secondary"
+            if _c1.button("Tudo", key="period_Tudo", use_container_width=True, type=_t):
+                st.session_state["period"] = "Tudo"
+                st.rerun()
+            _t = "primary" if sel_preset == "Personalizado" else "secondary"
+            if _c2.button("Personalizado", key="period_Pers", use_container_width=True, type=_t):
+                st.session_state["period"] = "Personalizado"
+                st.rerun()
+
             if sel_preset == "Personalizado":
                 _min = df_raw["Data da Venda"].min().date()
                 _max = df_raw["Data da Venda"].max().date()
