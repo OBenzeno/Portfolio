@@ -42,12 +42,18 @@ def render(
                      color="Margem %", color_continuous_scale=["#064e3b", "#00d4a0"],
                      text="Margem %")
         fig.update_traces(
-            texttemplate="%{text:.1f}%", textposition="outside",
+            texttemplate="%{text:.1f}%",
+            textposition="outside",
+            textfont=dict(color="#cbd5e1", size=13),
             hovertemplate="<b>%{y}</b><br>Margem: %{x:.1f}%<extra></extra>",
+            cliponaxis=False,
         )
         fig.update_layout(coloraxis_showscale=False)
         theme(fig, "Margem de Lucro por Categoria (%)", height=360)
-        fig.update_layout(xaxis=dict(ticksuffix="%", range=[10, margin_cat["Margem %"].max() * 1.12]))
+        fig.update_layout(
+            xaxis=dict(ticksuffix="%", range=[0, margin_cat["Margem %"].max() * 1.2], showgrid=True),
+            yaxis=dict(showgrid=False),
+        )
         st.plotly_chart(fig, use_container_width=True)
 
     with col_m2:
@@ -64,11 +70,16 @@ def render(
                 customdata=bp["Marca"],
                 hovertemplate=f"<b>%{{customdata}}</b><br>{name}: R$ %{{y:,.0f}}<extra></extra>",
             ))
+        _max = bp[["Receita", "Custo", "Lucro"]].max().max()
+        _y_max  = _max * 1.1
+        _ystep  = 10_000_000 if _y_max > 30_000_000 else 5_000_000
+        _ytvals = list(range(0, int(_y_max) + _ystep, _ystep))
+        _yttxt  = ["R$ 0"] + [f"R$ {v // 1_000_000}M" for v in _ytvals[1:]]
         theme(fig, "Receita vs Custo vs Lucro por Marca", height=360)
         fig.update_layout(
             barmode="group",
             legend=dict(orientation="h", y=1.08, x=0.01),
-            yaxis=dict(tickformat=",.0f", tickprefix="R$ "),
+            yaxis=dict(tickvals=_ytvals, ticktext=_yttxt, range=[0, _y_max]),
             xaxis=dict(tickangle=0, automargin=True, range=[-0.52, len(bp) - 0.48]),
         )
         st.plotly_chart(fig, use_container_width=True)

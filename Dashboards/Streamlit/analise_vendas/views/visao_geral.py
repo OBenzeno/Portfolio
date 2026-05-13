@@ -82,9 +82,11 @@ def render(
             cliponaxis=False,
         )
         fig.update_layout(coloraxis_showscale=False)
+        _xtvals = list(range(0, 25_000_001, 5_000_000))
+        _xttxt  = ["R$ 0"] + [f"R$ {v // 1_000_000}M" for v in _xtvals[1:]]
         theme(fig, "Top 10 Categorias por Receita")
         fig.update_layout(
-            xaxis=dict(tickformat=".2s", tickprefix="R$ ", range=[0, 25_000_000], dtick=5_000_000, showgrid=True),
+            xaxis=dict(tickvals=_xtvals, ticktext=_xttxt, range=[0, 25_000_000], showgrid=True),
             yaxis=dict(range=[-0.52, len(by_cat) - 0.48], showgrid=False),
         )
         st.plotly_chart(fig, use_container_width=True)
@@ -104,7 +106,7 @@ def render(
             marker=dict(colors=clrs[:len(by_brand)], line=dict(color="#0f1117", width=2)),
             textinfo="label+percent",
             textposition="outside",
-            textfont=dict(color="#cbd5e1", size=11),
+            textfont=dict(color="#cbd5e1", size=13),
             hovertemplate="<b>%{label}</b><br>R$ %{value:,.0f}<br>%{percent}<extra></extra>",
             domain=dict(x=[0.08, 0.92], y=[0.08, 0.92]),
         ))
@@ -125,15 +127,23 @@ def render(
             .sum().sort_values(ascending=False).head(10).reset_index()
         )
         top_prod["label"] = top_prod["Produto"].apply(_wrap)
-        fig = px.bar(top_prod, x="label", y="Receita")
+        top_prod["_txt"] = top_prod["Receita"].apply(fmt_brl)
+        fig = px.bar(top_prod, x="label", y="Receita", text="_txt")
         fig.update_traces(
             marker_color="#a855f7",
             hovertemplate="<b>%{customdata[0]}</b><br>R$ %{y:,.0f}<extra></extra>",
             customdata=top_prod[["Produto"]].values,
+            textposition="outside",
+            textfont=dict(color="#cbd5e1", size=14),
+            cliponaxis=False,
         )
+        _y_max  = top_prod["Receita"].max() * 1.25
+        _ystep  = 10_000_000 if _y_max > 30_000_000 else 5_000_000
+        _ytvals = list(range(0, int(_y_max) + _ystep, _ystep))
+        _yttxt  = ["R$ 0"] + [f"R$ {v // 1_000_000}M" for v in _ytvals[1:]]
         theme(fig, "Top 10 Produtos por Receita", height=380)
         fig.update_layout(
             xaxis=dict(tickangle=0, automargin=True, range=[-0.52, len(top_prod) - 0.48]),
-            yaxis=dict(tickformat=",.0f", tickprefix="R$ "),
+            yaxis=dict(tickvals=_ytvals, ticktext=_yttxt, range=[0, _y_max]),
         )
         st.plotly_chart(fig, use_container_width=True)

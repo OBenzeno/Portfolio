@@ -91,21 +91,23 @@ def render(df_base: pd.DataFrame, receita_total: float):
             .agg(Receita=("Receita", "sum"), Lucro=("Lucro", "sum"), Qtd=("Qtd. Vendida", "sum"))
             .sort_values("Receita", ascending=False).head(15).reset_index()
         )
-        top_c["Margem"] = (top_c["Lucro"] / top_c["Receita"] * 100).round(1)
-        max_receita = top_c["Receita"].max()
-        max_lucro   = top_c["Lucro"].max()
-        max_qtd     = top_c["Qtd"].max()
+        top_c["Margem"]   = (top_c["Lucro"] / top_c["Receita"] * 100).round(1)
+        top_c["Rec_M"]    = top_c["Receita"] / 1_000_000
+        top_c["Luc_M"]    = top_c["Lucro"]   / 1_000_000
+        max_rec_m = top_c["Rec_M"].max()
+        max_luc_m = top_c["Luc_M"].max()
+        max_qtd   = top_c["Qtd"].max()
         st.dataframe(
-            top_c[["País", "Receita", "Lucro", "Margem", "Qtd"]],
+            top_c[["País", "Rec_M", "Luc_M", "Margem", "Qtd"]],
             use_container_width=True,
             hide_index=True,
             height=423,
             column_config={
-                "País":    st.column_config.TextColumn("País"),
-                "Receita": st.column_config.ProgressColumn("Receita",      format="R$ %.0f", min_value=0, max_value=max_receita),
-                "Lucro":   st.column_config.ProgressColumn("Lucro",        format="R$ %.0f", min_value=0, max_value=max_lucro),
-                "Margem":  st.column_config.ProgressColumn("Margem %",     format="%.1f%%",  min_value=0, max_value=100),
-                "Qtd":     st.column_config.ProgressColumn("Qtd. Vendida", format="%d",      min_value=0, max_value=max_qtd),
+                "País":   st.column_config.TextColumn("País"),
+                "Rec_M":  st.column_config.ProgressColumn("Receita",      format="R$ %.1fM", min_value=0, max_value=max_rec_m),
+                "Luc_M":  st.column_config.ProgressColumn("Lucro",        format="R$ %.1fM", min_value=0, max_value=max_luc_m),
+                "Margem": st.column_config.ProgressColumn("Margem %",     format="%.1f%%",   min_value=0, max_value=100),
+                "Qtd":    st.column_config.ProgressColumn("Qtd. Vendida", format="%d",       min_value=0, max_value=max_qtd),
             },
         )
 
@@ -120,16 +122,19 @@ def render(df_base: pd.DataFrame, receita_total: float):
                  text="_txt")
     fig.update_traces(
         hovertemplate="<b>%{y}</b><br>R$ %{x:,.0f}<extra></extra>",
-        textposition="inside",
-        insidetextanchor="end",
-        textfont=dict(color="#f1f5f9", size=15),
-        constraintext="inside",
+        textposition="outside",
+        textfont=dict(color="#cbd5e1", size=18),
+        cliponaxis=False,
     )
+    _x_max = by_cont["Receita"].max() * 1.1
+    _step  = 10_000_000 if _x_max > 30_000_000 else 5_000_000
+    _tvals = list(range(0, int(_x_max) + _step, _step))
+    _ttxt  = ["R$ 0"] + [f"R$ {v // 1_000_000}M" for v in _tvals[1:]]
     theme(fig, "Receita por Continente", height=280)
     fig.update_layout(
         showlegend=False, yaxis_title="",
         bargap=0.15,
-        xaxis=dict(tickformat=".2s", tickprefix="R$ ", showgrid=True),
+        xaxis=dict(tickvals=_tvals, ticktext=_ttxt, showgrid=True, range=[0, _tvals[-1]]),
         yaxis=dict(showgrid=False),
     )
     st.plotly_chart(fig, use_container_width=True)

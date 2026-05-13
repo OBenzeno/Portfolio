@@ -33,9 +33,11 @@ def theme(fig, title: str = "", height: int = 320):
 
 def fmt_brl(val: float) -> str:
     if val >= 1_000_000:
-        return f"R$ {val/1_000_000:.1f}M"
+        s = f"{val/1_000_000:.1f}".rstrip("0").rstrip(".")
+        return f"R$ {s}M"
     if val >= 1_000:
-        return f"R$ {val/1_000:.1f}K"
+        s = f"{val/1_000:.1f}".rstrip("0").rstrip(".")
+        return f"R$ {s}K"
     return f"R$ {val:,.0f}"
 
 
