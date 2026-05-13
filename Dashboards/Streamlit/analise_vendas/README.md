@@ -135,4 +135,4 @@ O dashboard abrirá automaticamente em `http://localhost:8501`.
 
 ## Deploy
 
-Hospedado via **Streamlit Community Cloud** — acesse em: [vendas_analise](ttps://share.streamlit.io/app/portfolio-2hstxopdyujpj9wr2pvd52)
+Hospedado via **Streamlit Community Cloud** — acesse em: [vendas_analise](https://share.streamlit.io/app/portfolio-2hstxopdyujpj9wr2pvd52)
