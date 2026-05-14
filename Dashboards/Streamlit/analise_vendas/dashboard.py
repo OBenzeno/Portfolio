@@ -73,8 +73,8 @@ def _filter(df, sd, ed, cats_t, brands_t):
         (df["Marca"].isin(brands_t))
     ].copy()
 
-_cats_t   = tuple(sorted(sel_cats   if sel_cats   else cats))
-_brands_t = tuple(sorted(sel_brands if sel_brands else brands))
+_cats_t   = tuple(sorted(sel_cats))
+_brands_t = tuple(sorted(sel_brands))
 df_base   = _filter(df_raw, sd_month, ed_month, _cats_t, _brands_t)
 
 if df_base.empty:
