@@ -77,24 +77,35 @@ def render_sidebar(df_raw: pd.DataFrame, all_months: list) -> dict:
         cats   = sorted([c for c in df_raw["Categoria"].unique() if c != "nan"])
         brands = sorted([b for b in df_raw["Marca"].unique()     if b != "nan"])
 
+        # ── Callbacks para "Todas" ──
+        def _toggle_all_cats():
+            val = st.session_state["all_cats"]
+            for _c in cats:
+                st.session_state[f"cat_{_c}"] = val
+
+        def _toggle_all_brands():
+            val = st.session_state["all_brands"]
+            for _b in brands:
+                st.session_state[f"brand_{_b}"] = val
+
         # ── Filtro de Categoria ──
         with st.expander("CATEGORIA", expanded=False):
-            sel_all_cats = st.checkbox("Todas", value=True, key="all_cats")
+            st.checkbox("Todas", value=True, key="all_cats", on_change=_toggle_all_cats)
             col1, col2 = st.columns(2)
             sel_cats = []
             for i, cat in enumerate(cats):
                 col = col1 if i % 2 == 0 else col2
-                if col.checkbox(cat, value=sel_all_cats, key=f"cat_{cat}"):
+                if col.checkbox(cat, value=True, key=f"cat_{cat}"):
                     sel_cats.append(cat)
 
         # ── Filtro de Marca ──
         with st.expander("MARCA", expanded=False):
-            sel_all_brands = st.checkbox("Todas", value=True, key="all_brands")
+            st.checkbox("Todas", value=True, key="all_brands", on_change=_toggle_all_brands)
             col1, col2 = st.columns(2)
             sel_brands = []
             for i, brand in enumerate(brands):
                 col = col1 if i % 2 == 0 else col2
-                if col.checkbox(brand, value=sel_all_brands, key=f"brand_{brand}"):
+                if col.checkbox(brand, value=True, key=f"brand_{brand}"):
                     sel_brands.append(brand)
 
         st.markdown("---")
