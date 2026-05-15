@@ -2,7 +2,7 @@
 
 **`Estudante de DataScience`**
 
-Sou estudante de Ciência de Dados, atualmente no 4º semestre, com experiência em diversas ferramentas e técnicas de análise de dados, adquirida tanto em projetos acadêmicos quanto em cursos especializados. Tenho habilidades sólidas em Excel, Python, SQL, Power BI e Tableau, com foco na criação de dashboards interativos e visualizações eficazes.
+Sou estudante de Ciência de Dados, atualmente no 5º semestre, com experiência em diversas ferramentas e técnicas de análise de dados, adquirida tanto em projetos acadêmicos quanto em cursos especializados. Tenho habilidades sólidas em Excel, Python, SQL, Power BI e Tableau, com foco na criação de dashboards interativos e visualizações eficazes.
 
 Minha principal paixão está na Análise Exploratória de Dados (EDA), onde busco identificar padrões e insights valiosos a partir de grandes volumes de dados. Tenho experiência prática na elaboração de queries complexas em bancos de dados relacionais como PostgreSQL e MySQL, além de estar sempre em busca de novos aprendizados, o que inclui o desenvolvimento de projetos que envolvem visualização de dados e análises avançadas.
 
