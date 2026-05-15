@@ -8,15 +8,15 @@ Este projeto foi desenvolvido como atividade prática para a disciplina **Redes 
 
 ## 📌 Índice
 
-- [Sobre o Projeto](# sobre-o-projeto)
-- [Tecnologias Utilizadas](# tecnologias-utilizadas)
-- [Dados de Treinamento](# dados-de-treinamento)
-- [Arquitetura do Modelo](# arquitetura-do-modelo)
-- [Treinamento](# treinamento)
-- [Resultados](# resultados)
-- [Como Executar](# como-executar)
-- [Estrutura do Notebook](# estrutura-do-notebook)
-- [Licença](# licença)
+- [Sobre o Projeto](#sobre-o-projeto)
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Dados de Treinamento](#dados-de-treinamento)
+- [Arquitetura do Modelo](#arquitetura-do-modelo)
+- [Treinamento](#treinamento)
+- [Resultados](#resultados)
+- [Como Executar](#como-executar)
+- [Estrutura do Notebook](#estrutura-do-notebook)
+- [Licença](#licença)
 
 ## 🧠 Sobre o Projeto
 
