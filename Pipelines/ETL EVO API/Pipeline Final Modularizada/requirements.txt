@@ -1,6 +1,0 @@
-pandas==2.2.3
-requests==2.32.3
-SQLAlchemy==2.0.39
-psycopg2-binary==2.9.12
-python-dotenv==1.1.0
-questionary==2.1.1
