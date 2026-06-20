@@ -155,4 +155,4 @@ Pipelines/
 |---------|---------------|
 | Versão  | v1 (protótipo) |
 | Status  | Em desenvolvimento |
-| Autor   | — |
+| Autor   | Weslley Bitencourt |
