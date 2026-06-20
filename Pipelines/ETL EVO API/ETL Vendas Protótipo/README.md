@@ -1,158 +1,82 @@
-# Pipeline de Vendas — v1
+![Status](https://img.shields.io/badge/status-protótipo-orange)
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?logo=python&logoColor=white)
+![pandas](https://img.shields.io/badge/pandas-2.2.3-150458?logo=pandas&logoColor=white)
+![requests](https://img.shields.io/badge/requests-2.32.3-2CA5E0)
+![dotenv](https://img.shields.io/badge/python--dotenv-1.1.0-ECD53F)
 
-> [!WARNING]
-> **VERSÃO PROTÓTIPO** — Este pipeline está em fase inicial de desenvolvimento. A estrutura, os parâmetros e os comportamentos podem mudar significativamente nas próximas versões. Não utilize em ambientes de produção sem validação prévia.
+# ETL Vendas — Protótipo
 
----
-
-## Visão Geral
-
-Pipeline ETL para extração de dados de vendas via API REST, com paginação automática, tratamento de erros e exportação para CSV.
-
-**Arquivo principal:** `pipeline_vendas_v1.py`
+> **Este script é uma prova de conceito.** Foi o ponto de partida para validar a conexão com a API, o fluxo de paginação e a exportação básica para CSV. Não possui checkpoint, deduplicação nem carga incremental.
 
 ---
 
-## Fluxo de Dados
+## O que faz
+
+Conecta à API de vendas via HTTP Basic Auth, percorre todas as páginas de resultado (50 registros por vez) e exporta tudo para `sales.csv`.
 
 ```
-.env (credenciais)
-    │
-    ▼
-Autenticação HTTP Basic (DNS + TOKEN)
-    │
-    ▼
-Requisições paginadas à API (50 registros/requisição)
-    │
-    ▼
-Tratamento de erros e retentativas
-    │
-    ▼
-Normalização do JSON e limpeza de colunas
-    │
-    ▼
-Exportação → sales.csv (delimitador: ;)
+.env
+ └─ credenciais
+        │
+        ▼
+API de Vendas  ──  paginação take/skip
+        │
+        ▼
+Normalização JSON  →  limpeza de colunas
+        │
+        ▼
+    sales.csv
 ```
 
----
-
-## Pré-requisitos
-
-- Python 3.9+
-- Bibliotecas:
+## Instalação
 
 ```bash
-pip install requests pandas python-dotenv
+pip install -r requirements.txt
 ```
-
----
 
 ## Configuração
 
-Crie um arquivo `.env` na mesma pasta do script com as seguintes variáveis:
+Crie um `.env` na mesma pasta:
 
 ```env
-API_URL=https://sua-api.exemplo.com/endpoint
+API_URL=https://sua-api.com/endpoint
 API_DNS=seu_usuario
 API_TOKEN=seu_token
 ```
 
-| Variável    | Descrição                                  |
-|-------------|--------------------------------------------|
-| `API_URL`   | Endpoint da API de vendas                  |
-| `API_DNS`   | Usuário para autenticação HTTP Basic       |
-| `API_TOKEN` | Token/senha para autenticação HTTP Basic   |
-
----
-
-## Como Executar
+## Uso
 
 ```bash
-python pipeline_vendas_v1.py
+python etl_vendas_v1.py
 ```
-
----
 
 ## Comportamento
 
-### Paginação
-- Busca **50 registros por requisição** com incremento de offset automático.
-- Encerra quando a resposta retorna menos de 50 registros (última página).
+| Situação | O que acontece |
+|---|---|
+| HTTP 429 | Aguarda 10s e tenta novamente |
+| HTTP 401 | Loga erro e encerra |
+| Timeout | Aguarda 5s e tenta novamente |
+| Outros erros | Aguarda 10s e tenta novamente (sem limite de tentativas) |
 
-### Filtros aplicados
-| Parâmetro       | Valor                                          |
-|-----------------|------------------------------------------------|
-| `idBranch`      | `null` (todas as filiais)                      |
-| `dateSaleStart` | `2026-01-01T00:00:00` (fixo — ver limitações) |
-| `dateSaleEnd`   | Data/hora atual (fuso: `America/Fortaleza`)    |
+- Data de início fixa: `2026-01-01T00:00:00`
+- Data de fim: timestamp atual (fuso `America/Fortaleza`)
+- Delay entre páginas: 1,8 segundos
+- Saída: `sales.csv` — sempre sobrescreve, delimitador `;`, UTF-8
 
-### Tratamento de Erros
-| Situação           | Comportamento                         |
-|--------------------|---------------------------------------|
-| HTTP 429           | Aguarda 10s e tenta novamente         |
-| HTTP 401           | Loga erro de autenticação e encerra   |
-| Outros erros HTTP  | Aguarda 10s e tenta novamente         |
-| Timeout            | Aguarda 5s e tenta novamente          |
-| Erro de conexão    | Loga o erro e encerra o loop          |
-| JSON inválido      | Captura `ValueError` e loga           |
+## Limitações
 
-### Rate Limiting
-- Intervalo de **1,8 segundos** entre cada requisição para respeitar limites da API.
+- Sem checkpoint — sempre faz carga completa desde a data fixa
+- Sem deduplicação
+- Sem limite de tentativas em erros (risco de loop infinito)
+- Data de início hardcoded no código
+- Saída única em CSV local
 
----
+## Próximas versões
 
-## Saída
+Este protótipo evoluiu para:
 
-Arquivo gerado: **`sales.csv`**
-
-- Delimitador: `;`
-- Encoding: `UTF-8`
-- Colunas: normalizadas (minúsculas, sem espaços)
-  - Exemplo: `"Sales Amount"` → `"sales_amount"`
-
----
-
-## Limitações Conhecidas (Protótipo)
-
-- [ ] Data de início (`dateSaleStart`) está fixa no código — deve ser parametrizável
-- [ ] Sem suporte a múltiplos endpoints ou múltiplas filiais de forma configurável
-- [ ] Sem schema de validação dos dados recebidos
-- [ ] Destino de saída (CSV local) ainda não suporta exportação para banco de dados ou cloud storage
-- [ ] Sem testes automatizados
-- [ ] Logging básico via `print` — sem integração com sistema de logs estruturado
-
----
-
-## Roadmap
-
-- [ ] Parametrização do intervalo de datas via argumentos de linha de comando
-- [ ] Suporte a múltiplos destinos de saída (banco de dados, S3, GCS)
-- [ ] Schema de validação com `pydantic` ou `pandera`
-- [ ] Testes unitários e de integração
-- [ ] Logging estruturado com `logging` ou `loguru`
-- [ ] Containerização com Docker
-
----
-
-## Estrutura do Projeto
-
-```
-Pipelines/
-├── pipeline_vendas_v1.py   # Script principal
-├── .env                    # Credenciais (não versionar)
-├── sales.csv               # Saída gerada (não versionar)
-└── README.md               # Esta documentação
-```
-
-> [!IMPORTANT]
-> Nunca versione o arquivo `.env` ou `sales.csv`. Adicione-os ao `.gitignore`.
-
----
-
-## Versão
-
-| Campo   | Valor         |
-|---------|---------------|
-| Versão  | v1 (protótipo) |
-| Status  | Em desenvolvimento |
-| Autor   | Weslley Bitencourt |
+| Versão | Pasta | O que adiciona |
+|---|---|---|
+| Incremental | `../ETL Vendas Incremental` | Checkpoint, deduplicação dupla, retry com limite |
+| Unificado | `../ETL Vendas Unificado` | Multi-endpoint, config externa, signal handler |
