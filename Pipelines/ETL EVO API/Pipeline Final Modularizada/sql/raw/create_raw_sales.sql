@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS db_raw.sales (
+    idsale                          INTEGER         PRIMARY KEY,
+    idsaleitem                      INTEGER,
+    idmember                        INTEGER,
+    idemployeesale                  INTEGER,
+    nameemployeesale                VARCHAR(255),
+    saledate                        TIMESTAMP,
+    updatedate                      TIMESTAMP,
+    idbranch                        INTEGER,
+    idmembership                    INTEGER,
+    idmembermembership              INTEGER,
+    item                            VARCHAR(255),
+    itemvalue                       NUMERIC(12,2),
+    salevalue                       NUMERIC(12,2),
+    salevaluewithoutcreditvalue     NUMERIC(12,2),
+    quantity                        INTEGER,
+    idmembershiprenewed             INTEGER,
+    membershipstartdate             TIMESTAMP,
+    valuenextmonth                  NUMERIC(12,2)
+);
