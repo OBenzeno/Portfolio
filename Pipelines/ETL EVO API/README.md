@@ -62,14 +62,21 @@ Pipeline ETL modular para coleta, transformação e carga de dados da API EVO em
 | `sales` | Vendas de planos e produtos |
 | `receivables` | Recebíveis e inadimplência |
 
+**Filiais ativas:**
+
+| Identificador | Unidade |
+|---|---|
+| `filial_01` | Santa Helena |
+| `filial_02` | Jardim Cambuí |
+
 ---
 
 ## Estrutura do Projeto
 
 ```
-Pipeline Final Modularizada/
-├── run_all_branches.py       ← entrada interativa
-├── run_filial_01.py          ← execução automatizada (Task Scheduler)
+pipeline/
+├── run_pipeline.py           ← execução automática (Task Scheduler) — ambas filiais
+├── cli_pipeline.py           ← execução interativa com menus
 ├── main.py                   ← orquestrador endpoint × filial
 ├── config.py                 ← constantes globais
 ├── checkpoint.py             ← controle de checkpoint
@@ -91,7 +98,10 @@ Pipeline Final Modularizada/
 ├── sql/
 │   ├── raw/                  ← scripts CREATE TABLE para db_raw
 │   ├── data_warehouse/       ← scripts CREATE TABLE para data_warehouse
-│   └── Schema analytics + Views.txt
+│   └── views/                ← views desnormalizadas para BI
+│       ├── vw_members.sql
+│       ├── vw_sales.sql
+│       └── vw_debtors.sql
 │
 ├── data/                     ← gerado em runtime (não versionar)
 ├── checkpoints/              ← gerado em runtime (não versionar)
@@ -172,10 +182,18 @@ Mapeia cada filial aos nomes das variáveis de ambiente — sem armazenar valore
 
 ## Execução
 
+### Automação (Task Scheduler)
+
+```bash
+python run_pipeline.py
+```
+
+Executa todas as filiais e endpoints em sequência (`members → sales → debtors`), sem interação. Indicado para Task Scheduler ou cron. Registra falhas individuais e continua as demais combinações.
+
 ### Modo interativo
 
 ```bash
-python run_all_branches.py
+python cli_pipeline.py
 ```
 
 ```
@@ -194,14 +212,6 @@ python run_all_branches.py
 | Extração + Carga DB | Fluxo completo — uso normal |
 | Extração apenas | Coleta e salva em CSV, sem tocar no banco |
 | Carga DB apenas | Lê CSVs existentes e carrega no banco |
-
-### Automação
-
-```bash
-python run_filial_01.py
-```
-
-Executa todos os endpoints de uma filial em sequência, sem interação. Indicado para Task Scheduler ou cron.
 
 ---
 
@@ -257,14 +267,11 @@ Para cada **endpoint × filial**:
 ```
 dim_branch ──┬──▶ members ──▶ dim_address
              │        │
-dim_employee ┘        ├──▶ dim_partnerships
-                      │
-                      ├──▶ sales ──▶ dim_planos
-                      │       ├──▶ dim_employee
-                      │       └──▶ dim_branch
-                      │
-                      └──▶ debtors ──▶ dim_payment_type
-                                  └──▶ dim_branch
+dim_employee ┘        └──▶ dim_partnerships
+
+members ──▶ sales ──▶ dim_branch
+members ──▶ debtors ──▶ dim_branch
+                    └──▶ dim_payment_type
 ```
 
 **Schemas:**
@@ -283,6 +290,12 @@ dim_employee ┘        ├──▶ dim_partnerships
 4. sales, debtors
 ```
 
+**Notas de schema:**
+
+- Colunas de data e hora armazenadas em campos separados (`registerdate` / `registertime`, `saledate` / `saletime`, etc.)
+- `dim_partnerships` possui PK surrogate `idpartnership SERIAL` e restrição `UNIQUE (idmember, plataforma)` — permite um registro por plataforma por membro (GYMPASS, TOTALPASS)
+- Membros compartilhados entre filiais são carregados uma única vez; registros stub (somente ID) são preservados e preenchidos quando a filial de origem é processada
+
 **Tabelas inativas** (pendentes de validação — não criar):
 
 | Tabela | Motivo |
@@ -292,21 +305,17 @@ dim_employee ┘        ├──▶ dim_partnerships
 
 ---
 
-## Camada Analytics
+## Views para BI
 
-Schema `analytics` com views prontas para BI:
+Views desnormalizadas em `sql/views/`, prontas para importação no Power BI sem relacionamentos adicionais:
 
-| View | Descrição |
+| View | Tabelas mescladas |
 |---|---|
-| `vw_membros_ativos` | Total de membros por filial, ativos vs. bloqueados |
-| `vw_receita_mensal` | Receita, vendas e ticket médio por filial/mês |
-| `vw_inadimplentes` | Devedores em aberto com contato e dias de atraso |
-| `vw_novos_membros` | Novos cadastros por filial/mês |
-| `vw_receita_por_plano` | Receita e ticket médio por plano/filial/mês |
-| `vw_churn` | Membros ativos sem venda nos últimos 90 dias |
-| `vw_performance_consultores` | Receita e vendas por consultor/filial/mês |
+| `vw_members` | `members` + `dim_branch` + `dim_employee` + `dim_partnerships` + `dim_address` |
+| `vw_sales` | `sales` + `members` + `dim_branch` |
+| `vw_debtors` | `debtors` + `members` + `dim_branch` + `dim_payment_type` |
 
-Scripts em `sql/Schema analytics + Views.txt`.
+`vw_members` pivota `dim_partnerships` em colunas (`gympass_codigo`, `totalpass_codigo`) via `MAX(CASE WHEN ...)` para evitar multiplicação de linhas.
 
 ---
 
@@ -338,7 +347,8 @@ Dados parciais salvos automaticamente em `data/partial/`.
 | Sintoma | Causa | Solução |
 |---|---|---|
 | `Credenciais ausentes` | Variável faltando no `.env` | Verificar e preencher o `.env` |
-| `0 registros coletados` | Intervalo sem dados | Verificar `DEFAULT_DATE_START` e `endpoint_config.json` |
+| `0 registros coletados` | Intervalo sem dados ou `DEFAULT_DATE_START` comentado | Verificar `config.py` e `endpoint_config.json` |
 | `FK violation` | Endpoint carregado antes de `members` | Executar `members` primeiro |
 | Dados desatualizados | Checkpoint antigo | Apagar o arquivo em `checkpoints/` |
 | Encoding quebrado | Latin-1 detectado como UTF-8 | `fix_encoding()` em `transform.py` trata automaticamente |
+| Nome de filial incorreto no banco | Seed sobrescrita pela API | Pipeline reaplicar seed ao final de cada carga |
