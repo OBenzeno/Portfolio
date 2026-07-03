@@ -1,239 +1,353 @@
-# Documentação do Banco de Dados — Pipeline BI
+# Documentação do Banco de Dados — EvoGestor Pipeline
 
 ## Visão Geral
 
-O modelo relacional adota o padrão **Galaxy Schema** (também chamado de Constellation Schema), composto por **duas tabelas fato** (`sales` e `debtors`) que compartilham um conjunto de **tabelas dimensão**. A tabela `members` funciona como **dimensão principal**, servindo de eixo central do modelo.
+O banco de dados é dividido em dois schemas com responsabilidades distintas:
 
-```
-dim_branch ──┬──→ members ──→ dim_address
-             │        │
-dim_employee ┘        ├──→ dim_partnerships
-                      │
-                      ├──→ sales ──→ dim_planos
-                      │       └──→ dim_employee
-                      │       └──→ dim_branch
-                      │
-                      └──→ debtors ──→ dim_payment_type
-                                └──→ dim_branch
-```
+| Schema | Propósito |
+|---|---|
+| `db_raw` | Dump flat sem normalização — espelho do CSV limpo, usado para auditoria e reprocessamento |
+| `data_warehouse` | Modelo normalizado Galaxy Schema com dimensões e fatos, consumido pelo Power BI |
 
 ---
 
-## Tabelas
+## Schema `db_raw`
+
+Tabelas planas sem foreign keys. Preservam os dados exatamente como recebidos da API, incluindo campos DateTime originais. Servem como camada de backup — não devem ser usadas para análise direta.
+
+### `db_raw.members`
+
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `idmember` | Integer (PK) | ID do membro |
+| `firstname` | String(255) | Primeiro nome |
+| `lastname` | String(255) | Sobrenome |
+| `registername` | String(255) | Nome de registro |
+| `registerlastname` | String(255) | Sobrenome de registro |
+| `usepreferredname` | Boolean | Usa nome preferido |
+| `registerdate` | DateTime | Data/hora de cadastro |
+| `idbranch` | Integer | ID da filial |
+| `branchname` | String(255) | Nome da filial |
+| `accessblocked` | Boolean | Acesso bloqueado |
+| `blockedreason` | String(255) | Motivo do bloqueio |
+| `document` | String(20) | Tipo de documento |
+| `documentid` | String(20) | Número do documento |
+| `maritalstatus` | String(50) | Estado civil |
+| `gender` | String(20) | Gênero |
+| `birthdate` | DateTime | Data de nascimento |
+| `updatedate` | DateTime | Última atualização |
+| `state` | String(50) | Estado |
+| `city` | String(100) | Cidade |
+| `zipcode` | String(10) | CEP |
+| `complement` | String(255) | Complemento |
+| `number` | String(20) | Número |
+| `country` | String(100) | País |
+| `totalfitcoins` | Integer | Saldo de fitcoins |
+| `penalized` | Boolean | Penalizado |
+| `status` | String(50) | Status do membro |
+| `lastaccessdate` | DateTime | Último acesso |
+| `conversiondate` | DateTime | Data de conversão |
+| `idemployeeconsultant` | Integer | ID do consultor |
+| `nameemployeeconsultant` | String(255) | Nome do consultor |
+| `idemployeeinstructor` | Integer | ID do instrutor |
+| `nameemployeeinstructor` | String(255) | Nome do instrutor |
+| `photourl` | String(500) | URL da foto |
+| `gympassid` | String(100) | ID Gympass |
+| `personaltrainer` | Boolean | É personal trainer |
+| `codetotalpass` | String(100) | Código TotalPass |
+| `clientwithpromotionalrestriction` | Boolean | Restrição promocional |
+
+---
+
+### `db_raw.sales`
+
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `idsale` | Integer (PK) | ID da venda |
+| `idsaleitem` | Integer | ID do item da venda |
+| `idmember` | Integer | ID do membro |
+| `idemployeesale` | Integer | ID do vendedor |
+| `nameemployeesale` | String(255) | Nome do vendedor |
+| `saledate` | DateTime | Data/hora da venda |
+| `updatedate` | DateTime | Última atualização |
+| `idbranch` | Integer | ID da filial |
+| `idmembership` | Integer | ID do plano |
+| `idmembermembership` | Integer | ID da matrícula |
+| `item` | String(255) | Nome do item/plano |
+| `itemvalue` | Numeric(12,2) | Valor do item |
+| `salevalue` | Numeric(12,2) | Valor total da venda |
+| `salevaluewithoutcreditvalue` | Numeric(12,2) | Valor sem crédito |
+| `quantity` | Integer | Quantidade |
+| `idmembershiprenewed` | Integer | ID da matrícula renovada |
+| `membershipstartdate` | DateTime | Início da vigência |
+| `valuenextmonth` | Numeric(12,2) | Valor do próximo mês |
+
+---
+
+### `db_raw.debtors`
+
+| Coluna | Tipo | Descrição |
+|---|---|---|
+| `receivableid` | Integer (PK) | ID do recebível |
+| `memberid` | Integer | ID do membro |
+| `idmembermembership` | Integer | ID da matrícula |
+| `receivableidorigin` | Integer | ID de origem |
+| `branchid` | Integer | ID da filial |
+| `idpaymenttype` | Integer | ID do tipo de pagamento |
+| `memberstatus` | String(50) | Status do membro |
+| `duedate` | Date | Data de vencimento |
+| `paymentdate` | Date | Data de pagamento |
+| `registerdate` | DateTime | Data/hora de registro |
+| `originalduedate` | Date | Vencimento original |
+| `chargedate` | Date | Data da cobrança |
+| `dayslate` | Integer | Dias em atraso |
+| `debtamount` | Numeric(10,2) | Valor da dívida |
+| `debtstatus` | String(50) | Status do débito |
+| `paymentorigin` | String(100) | Origem do pagamento |
+| `chargeattemptscount` | Integer | Tentativas de cobrança |
+
+---
+
+## Schema `data_warehouse`
+
+Modelo Galaxy Schema normalizado. Todas as tabelas possuem foreign keys. Os campos DateTime da fonte são separados em colunas `Date` e `Time` distintas durante a carga ETL.
+
+### Diagrama de Relacionamentos
+
+```
+dim_branch ◄────────────────── members ──────────────────► dim_employee
+    ▲                              ▲
+    │                              │
+    ├──────── sales ───────────────┤
+    │           │                  │
+    │      dim_planos         dim_employee
+    │
+    └──────── debtors ─────────────┤
+                │             dim_payment_type
+                └──────────── members
+                              │
+                         dim_address (1:1)
+                         dim_partnerships (1:N)
+```
+
+---
 
 ### Dimensões Lookup
 
-Tabelas de referência simples, sem dependências externas. Devem ser criadas primeiro.
-
----
-
-#### `dim_branch`
-Cadastro de filiais.
+#### `data_warehouse.dim_branch`
 
 | Coluna | Tipo | Descrição |
 |---|---|---|
-| `branchid` | INTEGER PK | Identificador da filial |
-| `branchname` | VARCHAR(255) | Nome da filial |
+| `branchid` | Integer (PK) | ID da filial |
+| `branchname` | String(255) | Nome da filial |
+
+> Seeds pré-carregados: `60 = Jardim Cambuí`, `327 = Santa Helena`
 
 ---
 
-#### `dim_employee`
-Cadastro de funcionários (consultores e instrutores).
+#### `data_warehouse.dim_employee`
 
 | Coluna | Tipo | Descrição |
 |---|---|---|
-| `idemployee` | INTEGER PK | Identificador do funcionário |
-| `nameemployee` | VARCHAR(255) | Nome do funcionário |
+| `idemployee` | Integer (PK) | ID do funcionário |
+| `nameemployee` | String(255) | Nome do funcionário |
 
-> Utilizada duas vezes em `members`: para `idemployeeconsultant` e `idemployeeinstructor`.
+> Consolida consultores e instrutores em uma única dimensão.
 
 ---
 
-#### `dim_planos`
-Cadastro de planos/modalidades vendidas.
+#### `data_warehouse.dim_planos`
 
 | Coluna | Tipo | Descrição |
 |---|---|---|
-| `idmembership` | INTEGER PK | Identificador do plano |
-| `nome_plano` | VARCHAR(255) | Nome do plano |
-
-> Inclui planos convencionais e planos parceiros (GYMPASS, TOTALPASS, SKY PASS, etc.).
+| `idmembership` | Integer (PK) | ID do plano |
+| `nome_plano` | String(255) | Nome do plano |
 
 ---
 
-#### `dim_payment_type`
-Cadastro de tipos de pagamento.
+#### `data_warehouse.dim_payment_type`
 
 | Coluna | Tipo | Descrição |
 |---|---|---|
-| `idpaymenttype` | INTEGER PK | Identificador do tipo |
-| `paymenttype` | VARCHAR(100) | Descrição do tipo de pagamento |
+| `idpaymenttype` | Integer (PK) | ID do tipo de pagamento |
+| `paymenttype` | String(100) | Descrição do tipo |
 
 ---
 
 ### Dimensão Principal
 
-#### `members`
-Cadastro central de membros. Depende de `dim_branch` e `dim_employee`.
+#### `data_warehouse.members`
 
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `idmember` | INTEGER PK | Identificador do membro |
-| `firstname` | VARCHAR(255) | Primeiro nome |
-| `lastname` | VARCHAR(255) | Sobrenome |
-| `registername` | VARCHAR(255) | Nome de registro |
-| `registerlastname` | VARCHAR(255) | Sobrenome de registro |
-| `usepreferredname` | BOOLEAN | Usa nome preferido |
-| `registerdate` | TIMESTAMP | Data de cadastro |
-| `idbranch` | INTEGER FK→dim_branch | Filial do membro |
-| `accessblocked` | BOOLEAN | Acesso bloqueado |
-| `blockedreason` | VARCHAR(255) | Motivo do bloqueio |
-| `document` | VARCHAR(20) | CPF/documento principal |
-| `documentid` | VARCHAR(20) | RG ou documento secundário |
-| `maritalstatus` | VARCHAR(50) | Estado civil |
-| `gender` | VARCHAR(20) | Gênero |
-| `birthdate` | DATE | Data de nascimento |
-| `updatedate` | TIMESTAMP | Última atualização |
-| `totalfitcoins` | INTEGER | Saldo de fitcoins |
-| `penalized` | BOOLEAN | Membro penalizado |
-| `status` | VARCHAR(50) | Status atual (ativo, inativo, etc.) |
-| `lastaccessdate` | TIMESTAMP | Último acesso |
-| `conversiondate` | TIMESTAMP | Data de conversão para membro |
-| `idemployeeconsultant` | INTEGER FK→dim_employee | Consultor responsável |
-| `idemployeeinstructor` | INTEGER FK→dim_employee | Instrutor responsável |
-| `photourl` | VARCHAR(500) | URL da foto de perfil |
-| `personaltrainer` | BOOLEAN | É personal trainer |
-| `clientwithpromotionalrestriction` | BOOLEAN | Restrição promocional |
-
-> **Nota:** endereço e parcerias foram normalizados em `dim_address` e `dim_partnerships` respectivamente.
+| Coluna | Tipo | FK | Descrição |
+|---|---|---|---|
+| `idmember` | Integer (PK) | — | ID do membro |
+| `firstname` | String(255) | — | Primeiro nome |
+| `lastname` | String(255) | — | Sobrenome |
+| `registername` | String(255) | — | Nome de registro |
+| `registerlastname` | String(255) | — | Sobrenome de registro |
+| `usepreferredname` | Boolean | — | Usa nome preferido |
+| `idbranch` | Integer | `dim_branch.branchid` | Filial |
+| `accessblocked` | Boolean | — | Acesso bloqueado |
+| `blockedreason` | String(255) | — | Motivo do bloqueio |
+| `document` | String(20) | — | Tipo de documento |
+| `documentid` | String(20) | — | Número do documento |
+| `maritalstatus` | String(50) | — | Estado civil |
+| `gender` | String(20) | — | Gênero |
+| `birthdate` | Date | — | Data de nascimento |
+| `totalfitcoins` | Integer | — | Saldo de fitcoins |
+| `penalized` | Boolean | — | Penalizado |
+| `status` | String(50) | — | Status do membro |
+| `idemployeeconsultant` | Integer | `dim_employee.idemployee` | Consultor |
+| `idemployeeinstructor` | Integer | `dim_employee.idemployee` | Instrutor |
+| `photourl` | String(500) | — | URL da foto |
+| `personaltrainer` | Boolean | — | É personal trainer |
+| `clientwithpromotionalrestriction` | Boolean | — | Restrição promocional |
+| `phone_ddi` | String(10) | — | DDI do telefone |
+| `phone` | String(50) | — | Telefone |
+| `email` | String(255) | — | E-mail |
+| `registerdate` | Date | — | Data de cadastro |
+| `registertime` | Time | — | Hora de cadastro |
+| `updatedate` | Date | — | Data da última atualização |
+| `updatetime` | Time | — | Hora da última atualização |
+| `lastaccessdate` | Date | — | Data do último acesso |
+| `lastaccesstime` | Time | — | Hora do último acesso |
+| `conversiondate` | Date | — | Data de conversão |
+| `conversiontime` | Time | — | Hora de conversão |
 
 ---
 
 ### Dimensões Satélite
 
-Dependem de `members`. Devem ser criadas após `members`.
+#### `data_warehouse.dim_address`
+
+Endereço por membro. Relação 1:1 com `members`.
+
+| Coluna | Tipo | FK | Descrição |
+|---|---|---|---|
+| `idaddress` | Integer (PK, autoincrement) | — | ID interno |
+| `idmember` | Integer (UNIQUE) | `members.idmember` | Membro |
+| `state` | String(50) | — | Estado |
+| `city` | String(100) | — | Cidade |
+| `zipcode` | String(10) | — | CEP |
+| `complement` | String(255) | — | Complemento |
+| `number` | String(20) | — | Número |
+| `country` | String(100) | — | País |
+
+> Constraint: `uq_address_member UNIQUE (idmember)`
 
 ---
 
-#### `dim_address`
-Endereço de cada membro. Relacionamento 1:1 esperado (um endereço por membro).
+#### `data_warehouse.dim_partnerships`
 
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `idaddress` | SERIAL PK | Identificador gerado automaticamente |
-| `idmember` | INTEGER FK→members | Membro ao qual pertence |
-| `state` | VARCHAR(50) | Estado (UF) |
-| `city` | VARCHAR(100) | Cidade |
-| `zipcode` | VARCHAR(10) | CEP |
-| `complement` | VARCHAR(255) | Complemento |
-| `number` | VARCHAR(20) | Número |
-| `country` | VARCHAR(100) | País |
+Parcerias por membro (Gympass, TotalPass). PK surrogate com constraint unique por membro × plataforma.
 
----
+| Coluna | Tipo | FK | Descrição |
+|---|---|---|---|
+| `idpartnership` | Integer (PK, autoincrement) | — | ID interno |
+| `idmember` | Integer | `members.idmember` | Membro |
+| `plataforma` | String(50) | — | `GYMPASS` ou `TOTALPASS` |
+| `codigo` | String(100) | — | Código da parceria |
 
-#### `dim_partnerships`
-Codigos de plataformas parceiras vinculadas a cada membro (GYMPASS, TOTALPASS, SKY PASS, etc.).
-
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `idmember` | INTEGER PK+FK→members | Membro |
-| `plataforma` | VARCHAR(50) PK | Nome da plataforma parceira |
-| `codigo` | VARCHAR(100) | Código do membro na plataforma |
-
-> Chave primária composta: `(idmember, plataforma)`. Um membro pode ter múltiplas plataformas.
+> Constraint: `uq_partnerships UNIQUE (idmember, plataforma)`
 
 ---
 
 ### Tabelas Fato
 
-Dependem de `members` e das dimensões lookup. Criadas por último.
+#### `data_warehouse.sales`
+
+| Coluna | Tipo | FK | Descrição |
+|---|---|---|---|
+| `idsale` | Integer (PK) | — | ID da venda |
+| `idsaleitem` | Integer | — | ID do item |
+| `idmember` | Integer | `members.idmember` | Membro |
+| `idemployeesale` | Integer | `dim_employee.idemployee` | Vendedor |
+| `idbranch` | Integer | `dim_branch.branchid` | Filial |
+| `idmembership` | Integer | `dim_planos.idmembership` | Plano |
+| `idmembermembership` | Integer | — | ID da matrícula |
+| `salevalue` | Numeric(12,2) | — | Valor total da venda |
+| `itemvalue` | Numeric(12,2) | — | Valor do item |
+| `salevaluewithoutcreditvalue` | Numeric(12,2) | — | Valor sem crédito |
+| `quantity` | Integer | — | Quantidade |
+| `idmembershiprenewed` | Integer | — | Matrícula renovada |
+| `membershipstartdate` | Date | — | Início da vigência |
+| `valuenextmonth` | Numeric(12,2) | — | Valor próximo mês |
+| `saledate` | Date | — | Data da venda |
+| `saletime` | Time | — | Hora da venda |
+| `updatedate` | Date | — | Data da atualização |
+| `updatetime` | Time | — | Hora da atualização |
+
+> Registros com `salevalue = 0` correspondem a lançamentos de agregadores — filtrar nas análises.
 
 ---
 
-#### `sales`
-Vendas realizadas. Resultado da mesclagem das tabelas `sales` e `saleitens` da API (relação 1:1 confirmada em dados: 2274 idsale únicos, 0 com múltiplos itens).
+#### `data_warehouse.debtors`
 
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `idsale` | INTEGER PK | Identificador da venda (PK original da tabela mãe) |
-| `idsaleitem` | INTEGER | Identificador do item de venda (herdado da mesclagem) |
-| `idmember` | INTEGER FK→members | Membro que realizou a compra |
-| `idemployeesale` | INTEGER FK→dim_employee | Funcionário que realizou a venda |
-| `idbranch` | INTEGER FK→dim_branch | Filial da venda |
-| `idmembership` | INTEGER FK→dim_planos | Plano vendido |
-| `idmembermembership` | INTEGER | Referência ao contrato de matrícula (sem FK — tabela inativa pendente de validação) |
-| `saledate` | TIMESTAMP | Data da venda |
-| `updatedate` | TIMESTAMP | Data da última atualização |
-| `salevalue` | NUMERIC(12,2) | Valor total da venda |
-| `itemvalue` | NUMERIC(12,2) | Valor do item |
-| `salevaluewithoutcreditvalue` | NUMERIC(12,2) | Valor sem crédito aplicado |
-| `quantity` | INTEGER | Quantidade |
-| `idmembershiprenewed` | INTEGER | ID do plano renovado (se houver) |
-| `membershipstartdate` | TIMESTAMP | Início da vigência do plano |
-| `valuenextmonth` | NUMERIC(12,2) | Valor previsto para o próximo mês |
-
-> **Nota:** planos parceiros (GYMPASS, TOTALPASS, SKY PASS) aparecem com `salevalue = 0.0` pois o pagamento é feito externamente pela plataforma parceira.
-
----
-
-#### `debtors`
-Inadimplência e cobranças em aberto.
-
-| Coluna | Tipo | Descrição |
-|---|---|---|
-| `receivableid` | INTEGER PK | Identificador da cobrança |
-| `memberid` | INTEGER FK→members | Membro devedor |
-| `idmembermembership` | INTEGER | Referência ao contrato (sem FK — tabela inativa pendente de validação) |
-| `receivableidorigin` | INTEGER | ID da cobrança original (em caso de renegociação) |
-| `branchid` | INTEGER FK→dim_branch | Filial |
-| `idpaymenttype` | INTEGER FK→dim_payment_type | Tipo de pagamento |
-| `memberstatus` | VARCHAR(50) | Status do membro no momento da cobrança |
-| `duedate` | DATE | Data de vencimento |
-| `paymentdate` | DATE | Data de pagamento (se pago) |
-| `registerdate` | TIMESTAMP | Data de registro da cobrança |
-| `originalduedate` | DATE | Vencimento original (antes de renegociação) |
-| `chargedate` | DATE | Data da tentativa de cobrança |
-| `dayslate` | INTEGER | Dias de atraso |
-| `debtamount` | NUMERIC(10,2) | Valor da dívida |
-| `debtstatus` | VARCHAR(50) | Status da cobrança (aberta, paga, cancelada, etc.) |
-| `paymentorigin` | VARCHAR(100) | Canal de pagamento |
-| `chargeattemptscount` | INTEGER | Número de tentativas de cobrança |
+| Coluna | Tipo | FK | Descrição |
+|---|---|---|---|
+| `receivableid` | Integer (PK) | — | ID do recebível |
+| `memberid` | Integer | `members.idmember` | Membro |
+| `idmembermembership` | Integer | — | ID da matrícula |
+| `receivableidorigin` | Integer | — | ID de origem |
+| `branchid` | Integer | `dim_branch.branchid` | Filial |
+| `idpaymenttype` | Integer | `dim_payment_type.idpaymenttype` | Tipo de pagamento |
+| `memberstatus` | String(50) | — | Status do membro |
+| `duedate` | Date | — | Vencimento |
+| `paymentdate` | Date | — | Data de pagamento |
+| `originalduedate` | Date | — | Vencimento original |
+| `chargedate` | Date | — | Data da cobrança |
+| `dayslate` | Integer | — | Dias em atraso |
+| `debtamount` | Numeric(10,2) | — | Valor do débito |
+| `debtstatus` | String(50) | — | Status do débito |
+| `paymentorigin` | String(100) | — | Origem do pagamento |
+| `chargeattemptscount` | Integer | — | Tentativas de cobrança |
+| `registerdate` | Date | — | Data de registro |
+| `registertime` | Time | — | Hora de registro |
 
 ---
 
 ## Ordem de Criação das Tabelas
 
-A ordem abaixo garante que todas as Foreign Keys referenciem tabelas já existentes no banco:
+A criação respeita as dependências de foreign key:
 
 ```
-1. dim_branch          — sem dependências
-2. dim_employee        — sem dependências
-3. dim_planos          — sem dependências
-4. dim_payment_type    — sem dependências
-5. members             — depende de: dim_branch, dim_employee
-6. dim_address         — depende de: members
-7. dim_partnerships    — depende de: members
-8. sales               — depende de: members, dim_branch, dim_planos, dim_employee
-9. debtors             — depende de: members, dim_branch, dim_payment_type
+1. dim_branch
+2. dim_employee
+3. dim_planos
+4. dim_payment_type
+5. members
+6. dim_address
+7. dim_partnerships
+8. sales
+9. debtors
 ```
-
-> Executar os scripts em outra ordem resultará em erro de FK no PostgreSQL.
 
 ---
 
-## Tabelas Inativas (pendentes de validação)
+## Views — `data_warehouse`
 
-As tabelas abaixo existem na pasta `sql/inactive/` e **não devem ser criadas** até validação completa dos dados:
+Views desnormalizadas em `sql/views/`, prontas para consumo no Power BI sem relacionamentos adicionais.
 
-| Tabela | Motivo |
+| View | Tabelas mescladas |
 |---|---|
-| `membermembership` | Contém coluna aninhada (`receivables`) que precisa ser explodida e tratada antes do uso |
-| `receivables` | Relacionamento com `membermembership` e `sales` precisa ser validado com dados reais |
+| `vw_members` | `members` + `dim_branch` + `dim_employee` + `dim_partnerships` + `dim_address` |
+| `vw_sales` | `sales` + `members` + `dim_branch` |
+| `vw_debtors` | `debtors` + `members` + `dim_branch` + `dim_payment_type` |
 
-Colunas `idmembermembership` em `sales` e `debtors` são mantidas como referência informativa (sem FK) até que `membermembership` seja promovida para ativa.
+`vw_members` pivota `dim_partnerships` em colunas (`gympass_codigo`, `totalpass_codigo`) via `MAX(CASE WHEN ...)` para evitar multiplicação de linhas por parceria.
 
 ---
 
-## Diagrama ER
+## Decisões de Design
 
-![DER Tabelas Ativas](active/der_active.png)
+### Separação de DateTime em Date + Time
+Todos os campos de data/hora do `data_warehouse` são armazenados em colunas separadas (`*date` e `*time`). A derivação ocorre na camada ETL (Python/Pandas) antes do upsert. O `db_raw` preserva os `DateTime` originais da API para fins de auditoria.
+
+### Idempotência
+A carga usa `ON CONFLICT DO UPDATE` (upsert) pela chave primária. A pipeline pode ser executada múltiplas vezes sem duplicar registros.
+
+### Members Stub
+Quando `sales` ou `debtors` são carregados antes de `members`, a pipeline insere registros stub (somente `idmember`) para satisfazer a FK — sem sobrescrever dados reais já existentes (`ON CONFLICT DO NOTHING`).
+
+### Galaxy Schema
+`members` é a dimensão central compartilhada por `sales` e `debtors`. As dimensões satélite (`dim_address`, `dim_partnerships`) estendem `members` sem adicionar colunas à tabela principal.
