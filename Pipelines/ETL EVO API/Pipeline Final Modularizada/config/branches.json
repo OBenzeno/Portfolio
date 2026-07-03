@@ -2,11 +2,11 @@
   "filial_01": {
     "dns_env":   "API_DNS",
     "token_env": "API_TOKEN_FILIAL1",
-    "nome":      "Unidade 1"
+    "nome":      "Unidade Santa Helena"
   },
   "filial_02": {
     "dns_env":   "API_DNS",
     "token_env": "API_TOKEN_FILIAL2",
-    "nome":      "Unidade 2"
+    "nome":      "Unidade Jardim Cambuí"
   }
 }
