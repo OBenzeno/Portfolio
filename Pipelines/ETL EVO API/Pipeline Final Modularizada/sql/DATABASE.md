@@ -141,7 +141,7 @@ dim_branch ◄────────────────── members ─
 | `branchid` | Integer (PK) | ID da filial |
 | `branchname` | String(255) | Nome da filial |
 
-> Seeds pré-carregados: `60 = Sete Lagoas`, `327 = Santa Helena`
+> Seeds pré-carregados: `60 = Jardim Cambuí`, `327 = Santa Helena`
 
 ---
 
@@ -239,13 +239,16 @@ Endereço por membro. Relação 1:1 com `members`.
 
 #### `data_warehouse.dim_partnerships`
 
-Parcerias por membro (Gympass, TotalPass). PK composta.
+Parcerias por membro (Gympass, TotalPass). PK surrogate com constraint unique por membro × plataforma.
 
 | Coluna | Tipo | FK | Descrição |
 |---|---|---|---|
-| `idmember` | Integer (PK) | `members.idmember` | Membro |
-| `plataforma` | String(50) (PK) | — | `GYMPASS` ou `TOTALPASS` |
+| `idpartnership` | Integer (PK, autoincrement) | — | ID interno |
+| `idmember` | Integer | `members.idmember` | Membro |
+| `plataforma` | String(50) | — | `GYMPASS` ou `TOTALPASS` |
 | `codigo` | String(100) | — | Código da parceria |
+
+> Constraint: `uq_partnerships UNIQUE (idmember, plataforma)`
 
 ---
 
@@ -318,6 +321,20 @@ A criação respeita as dependências de foreign key:
 8. sales
 9. debtors
 ```
+
+---
+
+## Views — `data_warehouse`
+
+Views desnormalizadas em `sql/views/`, prontas para consumo no Power BI sem relacionamentos adicionais.
+
+| View | Tabelas mescladas |
+|---|---|
+| `vw_members` | `members` + `dim_branch` + `dim_employee` + `dim_partnerships` + `dim_address` |
+| `vw_sales` | `sales` + `members` + `dim_branch` |
+| `vw_debtors` | `debtors` + `members` + `dim_branch` + `dim_payment_type` |
+
+`vw_members` pivota `dim_partnerships` em colunas (`gympass_codigo`, `totalpass_codigo`) via `MAX(CASE WHEN ...)` para evitar multiplicação de linhas por parceria.
 
 ---
 
