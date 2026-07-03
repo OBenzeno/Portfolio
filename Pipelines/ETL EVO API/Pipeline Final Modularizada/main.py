@@ -160,7 +160,7 @@ def run(alias: str, branch: str, operacao: str = "full") -> None:
 
     checkpoint     = load_checkpoint(alias, branch)
     date_end       = datetime.now(ZoneInfo("America/Fortaleza")).strftime("%Y-%m-%dT%H:%M:%S")
-    date_start     = checkpoint.get("last_run") #or DEFAULT_DATE_START
+    date_start     = checkpoint.get("last_run") or DEFAULT_DATE_START
     is_incremental = checkpoint.get("last_run") is not None
 
     if is_incremental:

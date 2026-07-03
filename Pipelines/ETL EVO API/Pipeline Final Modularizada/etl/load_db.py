@@ -235,9 +235,9 @@ def init_db() -> Engine:
 
 # IDs de filial conhecidos da API → nome legível.
 # Garante que dim_branch tenha nomes mesmo quando a fonte de dados não os envia.
-# Configure os IDs e nomes conforme as filiais do seu ambiente no .env ou diretamente aqui.
 _BRANCH_SEEDS: dict[int, str] = {
-    # <id_filial>: "<nome_filial>",
+    60:  "Jardim Cambui",
+    327: "Santa Helena",
 }
 
 
@@ -275,33 +275,44 @@ def _migrate_columns(engine) -> None:
             END IF;
         END $$
         """,
-        # Colunas derivadas de DateTime — members (ADD)
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS registerdate_date   DATE",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS registerdate_time   TIME",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS updatedate_date     DATE",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS updatedate_time     TIME",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS lastaccessdate_date DATE",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS lastaccessdate_time TIME",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS conversiondate_date DATE",
-        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS conversiondate_time TIME",
-        # Colunas derivadas de DateTime — members (BACKFILL)
-        "UPDATE data_warehouse.members SET registerdate_date   = registerdate::DATE,   registerdate_time   = registerdate::TIME   WHERE registerdate   IS NOT NULL AND registerdate_date   IS NULL",
-        "UPDATE data_warehouse.members SET updatedate_date     = updatedate::DATE,     updatedate_time     = updatedate::TIME     WHERE updatedate     IS NOT NULL AND updatedate_date     IS NULL",
-        "UPDATE data_warehouse.members SET lastaccessdate_date = lastaccessdate::DATE, lastaccessdate_time = lastaccessdate::TIME WHERE lastaccessdate IS NOT NULL AND lastaccessdate_date IS NULL",
-        "UPDATE data_warehouse.members SET conversiondate_date = conversiondate::DATE, conversiondate_time = conversiondate::TIME WHERE conversiondate IS NOT NULL AND conversiondate_date IS NULL",
-        # Colunas derivadas de DateTime — sales (ADD)
-        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS saledate_date   DATE",
-        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS saledate_time   TIME",
-        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS updatedate_date DATE",
-        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS updatedate_time TIME",
-        # Colunas derivadas de DateTime — sales (BACKFILL)
-        "UPDATE data_warehouse.sales SET saledate_date   = saledate::DATE,   saledate_time   = saledate::TIME   WHERE saledate   IS NOT NULL AND saledate_date   IS NULL",
-        "UPDATE data_warehouse.sales SET updatedate_date = updatedate::DATE, updatedate_time = updatedate::TIME WHERE updatedate IS NOT NULL AND updatedate_date IS NULL",
-        # Colunas derivadas de DateTime — debtors (ADD)
-        "ALTER TABLE data_warehouse.debtors ADD COLUMN IF NOT EXISTS registerdate_date DATE",
-        "ALTER TABLE data_warehouse.debtors ADD COLUMN IF NOT EXISTS registerdate_time TIME",
-        # Colunas derivadas de DateTime — debtors (BACKFILL)
-        "UPDATE data_warehouse.debtors SET registerdate_date = registerdate::DATE, registerdate_time = registerdate::TIME WHERE registerdate IS NOT NULL AND registerdate_date IS NULL",
+        # Colunas de tempo separadas — members
+        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS registertime    TIME",
+        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS updatetime      TIME",
+        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS lastaccesstime  TIME",
+        "ALTER TABLE data_warehouse.members ADD COLUMN IF NOT EXISTS conversiontime  TIME",
+        # Colunas de tempo separadas — sales
+        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS saletime   TIME",
+        "ALTER TABLE data_warehouse.sales ADD COLUMN IF NOT EXISTS updatetime TIME",
+        # Colunas de tempo separadas — debtors
+        "ALTER TABLE data_warehouse.debtors ADD COLUMN IF NOT EXISTS registertime TIME",
+        # dim_partnerships — PK surrogate e unique constraint
+        """
+        DO $$ BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM information_schema.columns
+                WHERE table_schema = 'data_warehouse'
+                AND table_name    = 'dim_partnerships'
+                AND column_name   = 'idpartnership'
+            ) THEN
+                ALTER TABLE data_warehouse.dim_partnerships
+                    DROP CONSTRAINT IF EXISTS dim_partnerships_idmember_plataforma_pkey,
+                    DROP CONSTRAINT IF EXISTS partnerships_pkey;
+                ALTER TABLE data_warehouse.dim_partnerships
+                    ADD COLUMN idpartnership SERIAL PRIMARY KEY;
+            END IF;
+        END $$
+        """,
+        """
+        DO $$ BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM pg_constraint
+                WHERE conname = 'uq_partnerships'
+            ) THEN
+                ALTER TABLE data_warehouse.dim_partnerships
+                ADD CONSTRAINT uq_partnerships UNIQUE (idmember, plataforma);
+            END IF;
+        END $$
+        """,
     ]
     with engine.begin() as conn:
         for stmt in migrations:
@@ -614,11 +625,16 @@ def load_db(
         # Merge de contacts antes do upsert de members
         df_members = _merge_contacts(df, dfs_explodidos.get("contacts"))
         # Deriva colunas de data e hora a partir dos campos DateTime
-        for col in ["registerdate", "updatedate", "lastaccessdate", "conversiondate"]:
+        for col, timecol in [
+            ("registerdate",   "registertime"),
+            ("updatedate",     "updatetime"),
+            ("lastaccessdate", "lastaccesstime"),
+            ("conversiondate", "conversiontime"),
+        ]:
             if col in df_members.columns:
                 dt = pd.to_datetime(df_members[col], errors="coerce")
-                df_members[f"{col}_date"] = dt.dt.date
-                df_members[f"{col}_time"] = dt.dt.time
+                df_members[timecol] = dt.dt.time
+                df_members[col]     = dt.dt.date
         # birthdate: converte para Date puro (sem hora)
         if "birthdate" in df_members.columns:
             df_members["birthdate"] = pd.to_datetime(df_members["birthdate"], errors="coerce").dt.date
@@ -649,11 +665,11 @@ def load_db(
             )
             _load_members_stub(member_ids, engine)
         # Deriva colunas de data e hora — sales
-        for col in ["saledate", "updatedate"]:
+        for col, timecol in [("saledate", "saletime"), ("updatedate", "updatetime")]:
             if col in df_sales.columns:
                 dt = pd.to_datetime(df_sales[col], errors="coerce")
-                df_sales[f"{col}_date"] = dt.dt.date
-                df_sales[f"{col}_time"] = dt.dt.time
+                df_sales[timecol] = dt.dt.time
+                df_sales[col]     = dt.dt.date
         # membershipstartdate: converte para Date puro (sem hora)
         if "membershipstartdate" in df_sales.columns:
             df_sales["membershipstartdate"] = pd.to_datetime(df_sales["membershipstartdate"], errors="coerce").dt.date
@@ -689,8 +705,8 @@ def load_db(
         # Deriva colunas de data e hora — debtors
         if "registerdate" in df_debtors.columns:
             dt = pd.to_datetime(df_debtors["registerdate"], errors="coerce")
-            df_debtors["registerdate_date"] = dt.dt.date
-            df_debtors["registerdate_time"] = dt.dt.time
+            df_debtors["registertime"] = dt.dt.time
+            df_debtors["registerdate"] = dt.dt.date
         load_rel_debtors(df_debtors, engine)
         # Re-aplica seed para garantir que nomes da API não sobrescrevam o padrão
         _seed_dim_branch(engine)
