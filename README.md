@@ -145,11 +145,9 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     align="left" 
     alt="GitHub Streak" 
     height="200" 
-    src="https://github-readme-streak-stats.herokuapp.com/?user=OBenzeno&theme=tokyonight&hide_border=false&cache_seconds=86400" 
+    src="https://streak-stats.demolab.com/?user=OBenzeno&theme=tokyonight&hide_border=false&cache_seconds=86400" 
   />
 </p>
 
 <br/>
 <br/>
-
-</p>
