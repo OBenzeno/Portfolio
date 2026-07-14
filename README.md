@@ -147,7 +147,8 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     alt="Top Languages" 
     height="200" 
     style="padding-right: 10px;" 
-    src="https://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
+    src=[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark)](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark)
+      
   />
 </p>
 
