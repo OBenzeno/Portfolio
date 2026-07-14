@@ -138,7 +138,7 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     alt="Top Languages" 
     height="200" 
     style="padding-right: 10px;" 
-    src="https://http://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
+    src="https://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
   />
 
   <img 
@@ -149,6 +149,5 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
 </p>
 
-[![Anurag's GitHub stats](https://github-stats-extended.vercel.app/api?username=anuraghazra)](https://github.com/stats-organization/github-stats-extended)
 <br/>
 <br/>
