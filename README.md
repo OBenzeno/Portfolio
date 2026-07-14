@@ -149,7 +149,5 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
 </p>
 
-<p>&nbsp;<img align="center" src="https://github-readme-stats.vercel.app/api?username=Obenzeno&show_icons=true&locale=en" alt="Obenzeno" /></p>
-
 <br/>
 <br/>
