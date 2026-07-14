@@ -135,18 +135,22 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
 
   <img 
     align="left" 
+    alt="GitHub Streak" 
+    height="200" 
+    src="https://streak-stats.demolab.com/?user=OBenzeno&theme=tokyonight&hide_border=false&cache_seconds=86400" 
+  />
+  
+<br/>
+
+  <img 
+    align="left" 
     alt="Top Languages" 
     height="200" 
     style="padding-right: 10px;" 
     src="https://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
   />
 
-  <img 
-    align="left" 
-    alt="GitHub Streak" 
-    height="200" 
-    src="https://streak-stats.demolab.com/?user=OBenzeno&theme=tokyonight&hide_border=false&cache_seconds=86400" 
-  />
+
 </p>
 
 <br/>
