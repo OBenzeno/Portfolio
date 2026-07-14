@@ -130,7 +130,7 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     alt="GitHub Stats" 
     height="200" 
     style="padding-right: 10px;" 
-    src="https://github-readme-stats.vercel.app/api?username=OBenzeno&show_icons=true&theme=tokyonight&include_all_commits=true&locale=pt-br&cache_seconds=86400" 
+    src="https://github-stats-extended.vercel.app/api?username=OBenzeno&show_icons=true&theme=tokyonight&include_all_commits=true&locale=pt-br&cache_seconds=86400" 
   />
 
   <img 
@@ -138,7 +138,7 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     alt="Top Languages" 
     height="200" 
     style="padding-right: 10px;" 
-    src="https://github-readme-stats.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
+    src="https://http://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
   />
 
   <img 
