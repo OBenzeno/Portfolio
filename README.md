@@ -141,6 +141,7 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
   
 <br/>
+<br/>
 
   <img 
     align="left" 
