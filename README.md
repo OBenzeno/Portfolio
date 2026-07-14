@@ -149,5 +149,6 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
 </p>
 
+[![Anurag's GitHub stats](https://github-stats-extended.vercel.app/api?username=anuraghazra)](https://github.com/stats-organization/github-stats-extended)
 <br/>
 <br/>
