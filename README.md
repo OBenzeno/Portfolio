@@ -128,6 +128,8 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
 
 [![GitHub Stats](https://github-stats-extended.vercel.app/api?username=OBenzeno&rank_icon=github&show_icons=true&include_all_commits=true&theme=github_dark)](https://github-stats-extended.vercel.app/api?username=OBenzeno&rank_icon=github&show_icons=true&include_all_commits=true&theme=github_dark)
 
+
+[![GitHub Stats](https://github-stats-extended.vercel.app/api/wakatime?username=alan&layout=compact&langs_count=10&display_format=percent&theme=github_dark)](https://wakatime.com/@alan)
   
 <br/>
 
