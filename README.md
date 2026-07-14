@@ -141,8 +141,9 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
   
 <br/>
+
 src=[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark)](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark) 
-  />
+
 </p>
 
 <br/>
