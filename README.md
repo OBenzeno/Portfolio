@@ -141,7 +141,6 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
   />
   
 <br/>
-<br/>
 
   <img 
     align="left" 
@@ -150,8 +149,6 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
     style="padding-right: 10px;" 
     src="https://github-stats-extended.vercel.app/api/top-langs/?username=OBenzeno&theme=tokyonight&layout=compact&custom_title=Tecnologias&langs_count=9&cache_seconds=86400" 
   />
-
-
 </p>
 
 <br/>
