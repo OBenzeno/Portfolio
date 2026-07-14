@@ -125,24 +125,13 @@ Se quiser saber mais sobre minha trajetória profissional, fique à vontade para
 ### 📊 Estatísticas
 
 <p>
-  <img 
-    align="left" 
-    alt="GitHub Stats" 
-    height="200" 
-    style="padding-right: 10px;" 
-    src="https://github-stats-extended.vercel.app/api?username=OBenzeno&show_icons=true&theme=tokyonight&include_all_commits=true&locale=pt-br&cache_seconds=86400" 
-  />
 
-  <img 
-    align="left" 
-    alt="GitHub Streak" 
-    height="200" 
-    src="https://streak-stats.demolab.com/?user=OBenzeno&theme=tokyonight&hide_border=false&cache_seconds=86400" 
-  />
+[![GitHub Stats](https://github-stats-extended.vercel.app/api?username=OBenzeno&rank_icon=github&show_icons=true&include_all_commits=true&theme=github_dark)](https://github-stats-extended.vercel.app/api?username=OBenzeno&rank_icon=github&show_icons=true&include_all_commits=true&theme=github_dark)
+
   
 <br/>
 
-src=[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark)](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark) 
+[![GitHub Stats](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark)](https://github-stats-extended.vercel.app/api/top-langs?username=OBenzeno&layout=donut&langs_count=10&theme=github_dark) 
 
 </p>
 
